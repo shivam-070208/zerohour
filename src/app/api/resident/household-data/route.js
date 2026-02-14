@@ -1,6 +1,7 @@
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { headers } from "next/headers";
+import { inngest } from "@/inngest/client";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -82,6 +83,28 @@ export async function POST(request) {
           location: location || "",
         },
       });
+    }
+
+    // Trigger Inngest events to generate workflows
+    try {
+      // Individual-level plan
+      await inngest.send({
+        name: "event.generate.individual",
+        data: { userId: session.user.id, householdData },
+      });
+
+      // If the user is a member of a community, trigger community-level plan
+      const member = await prisma.member.findFirst({
+        where: { userId: session.user.id },
+      });
+      if (member?.communityId) {
+        await inngest.send({
+          name: "event.generate.community",
+          data: { communityId: member.communityId },
+        });
+      }
+    } catch (e) {
+      console.error("Failed to send inngest event:", e);
     }
 
     return NextResponse.json({ householdData });

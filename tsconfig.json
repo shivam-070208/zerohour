@@ -34,7 +34,7 @@
     "**/*.mts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/app/api/inngest/route.js"  ],
   "exclude": [
     "node_modules"
   ]

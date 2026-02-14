@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -9,6 +10,7 @@ export default function LeaderMembersPage() {
   const [members, setMembers] = useState([]);
   const [requests, setRequests] = useState([]);
   const [communityName, setCommunityName] = useState("");
+  const [communityId, setCommunityId] = useState(null);
   const [processing, setProcessing] = useState(null);
   const [error, setError] = useState(null);
   const [showRequestsModal, setShowRequestsModal] = useState(false);
@@ -22,12 +24,54 @@ export default function LeaderMembersPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data?.error || "Failed to load");
       setCommunityName(data.communityName || "");
+      setCommunityId(data.community?.id || null);
       setMembers(data.members || []);
     } catch (err) {
       console.error("Load members error:", err);
       setError(err.message || "Failed to load");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const router = useRouter();
+
+  const viewWorkflow = async (scope, id) => {
+    try {
+      setProcessing(`view-${id}`);
+      const query =
+        scope === "individual" ? `userId=${id}` : `communityId=${id}`;
+      const res = await fetch(`/api/recommendation/search?${query}`);
+      const data = await res.json();
+      if (!res.ok || !data.id) {
+        toast.error("Workflow not found. Please regenerate.");
+        return;
+      }
+      router.push(`/recommendation/${data.id}`);
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to load workflow");
+    } finally {
+      setProcessing(null);
+    }
+  };
+
+  const regenerateWorkflow = async (scope, id) => {
+    try {
+      setProcessing(id);
+      const res = await fetch("/api/workflow/regenerate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ scope, id }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data?.error || "Failed to trigger");
+      toast.success("Regeneration triggered — it may take a moment.");
+    } catch (err) {
+      console.error(err);
+      toast.error(err.message || "Failed to regenerate");
+    } finally {
+      setProcessing(null);
     }
   };
 
@@ -112,17 +156,31 @@ export default function LeaderMembersPage() {
           </h2>
           <p className="text-gray-600 mt-1">Total members: {members.length}</p>
         </div>
-        <Button
-          onClick={openRequestsModal}
-          className="bg-blue-600 hover:bg-blue-700 text-white relative"
-        >
-          Join Requests
-          {pendingRequests.length > 0 && (
-            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-              {pendingRequests.length}
-            </span>
-          )}
-        </Button>
+        <div className="flex items-center gap-3">
+          <Button
+            onClick={openRequestsModal}
+            className="bg-blue-600 hover:bg-blue-700 text-white relative"
+          >
+            Join Requests
+            {pendingRequests.length > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                {pendingRequests.length}
+              </span>
+            )}
+          </Button>
+          <Button
+            onClick={() => viewWorkflow("community", communityId)}
+            className="bg-purple-600 hover:bg-purple-700 text-white"
+          >
+            View Community Workflow
+          </Button>
+          <Button
+            onClick={() => regenerateWorkflow("community", communityId)}
+            className="bg-amber-600 hover:bg-amber-700 text-white"
+          >
+            Regenerate Community Workflow
+          </Button>
+        </div>
       </div>
 
       {/* Members List */}
@@ -206,6 +264,26 @@ export default function LeaderMembersPage() {
                       )}
                     </div>
                   )}
+
+                  {/* Workflow actions */}
+                  <div className="mt-3 flex gap-2">
+                    <Button
+                      onClick={() =>
+                        viewWorkflow("individual", member.user?.id)
+                      }
+                      className="bg-sky-600 hover:bg-sky-700 text-white text-sm"
+                    >
+                      View Workflow
+                    </Button>
+                    <Button
+                      onClick={() =>
+                        regenerateWorkflow("individual", member.user?.id)
+                      }
+                      className="bg-amber-600 hover:bg-amber-700 text-white text-sm"
+                    >
+                      Regenerate
+                    </Button>
+                  </div>
 
                   {!member.householdData && (
                     <p className="text-xs text-gray-400 mt-3">
