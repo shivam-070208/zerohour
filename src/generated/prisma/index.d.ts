@@ -2290,12 +2290,14 @@ export namespace Prisma {
 
   export type RecommendationCountOutputType = {
     nodes: number
+    edges: number
     tasks: number
     userProgresses: number
   }
 
   export type RecommendationCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     nodes?: boolean | RecommendationCountOutputTypeCountNodesArgs
+    edges?: boolean | RecommendationCountOutputTypeCountEdgesArgs
     tasks?: boolean | RecommendationCountOutputTypeCountTasksArgs
     userProgresses?: boolean | RecommendationCountOutputTypeCountUserProgressesArgs
   }
@@ -2316,6 +2318,13 @@ export namespace Prisma {
    */
   export type RecommendationCountOutputTypeCountNodesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: NodeWhereInput
+  }
+
+  /**
+   * RecommendationCountOutputType without action
+   */
+  export type RecommendationCountOutputTypeCountEdgesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: EdgeWhereInput
   }
 
   /**
@@ -12712,6 +12721,7 @@ export namespace Prisma {
     user?: boolean | Recommendation$userArgs<ExtArgs>
     community?: boolean | Recommendation$communityArgs<ExtArgs>
     nodes?: boolean | Recommendation$nodesArgs<ExtArgs>
+    edges?: boolean | Recommendation$edgesArgs<ExtArgs>
     tasks?: boolean | Recommendation$tasksArgs<ExtArgs>
     userProgresses?: boolean | Recommendation$userProgressesArgs<ExtArgs>
     _count?: boolean | RecommendationCountOutputTypeDefaultArgs<ExtArgs>
@@ -12759,6 +12769,7 @@ export namespace Prisma {
     user?: boolean | Recommendation$userArgs<ExtArgs>
     community?: boolean | Recommendation$communityArgs<ExtArgs>
     nodes?: boolean | Recommendation$nodesArgs<ExtArgs>
+    edges?: boolean | Recommendation$edgesArgs<ExtArgs>
     tasks?: boolean | Recommendation$tasksArgs<ExtArgs>
     userProgresses?: boolean | Recommendation$userProgressesArgs<ExtArgs>
     _count?: boolean | RecommendationCountOutputTypeDefaultArgs<ExtArgs>
@@ -12778,6 +12789,7 @@ export namespace Prisma {
       user: Prisma.$UserPayload<ExtArgs> | null
       community: Prisma.$CommunityPayload<ExtArgs> | null
       nodes: Prisma.$NodePayload<ExtArgs>[]
+      edges: Prisma.$EdgePayload<ExtArgs>[]
       tasks: Prisma.$TaskPayload<ExtArgs>[]
       userProgresses: Prisma.$UserProgressPayload<ExtArgs>[]
     }
@@ -13187,6 +13199,7 @@ export namespace Prisma {
     user<T extends Recommendation$userArgs<ExtArgs> = {}>(args?: Subset<T, Recommendation$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     community<T extends Recommendation$communityArgs<ExtArgs> = {}>(args?: Subset<T, Recommendation$communityArgs<ExtArgs>>): Prisma__CommunityClient<$Result.GetResult<Prisma.$CommunityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     nodes<T extends Recommendation$nodesArgs<ExtArgs> = {}>(args?: Subset<T, Recommendation$nodesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NodePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    edges<T extends Recommendation$edgesArgs<ExtArgs> = {}>(args?: Subset<T, Recommendation$edgesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EdgePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     tasks<T extends Recommendation$tasksArgs<ExtArgs> = {}>(args?: Subset<T, Recommendation$tasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     userProgresses<T extends Recommendation$userProgressesArgs<ExtArgs> = {}>(args?: Subset<T, Recommendation$userProgressesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -13681,6 +13694,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: NodeScalarFieldEnum | NodeScalarFieldEnum[]
+  }
+
+  /**
+   * Recommendation.edges
+   */
+  export type Recommendation$edgesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Edge
+     */
+    select?: EdgeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Edge
+     */
+    omit?: EdgeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EdgeInclude<ExtArgs> | null
+    where?: EdgeWhereInput
+    orderBy?: EdgeOrderByWithRelationInput | EdgeOrderByWithRelationInput[]
+    cursor?: EdgeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: EdgeScalarFieldEnum | EdgeScalarFieldEnum[]
   }
 
   /**
@@ -14902,6 +14939,7 @@ export namespace Prisma {
     id: string | null
     sourceNodeId: string | null
     targetNodeId: string | null
+    recommendationId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -14910,6 +14948,7 @@ export namespace Prisma {
     id: string | null
     sourceNodeId: string | null
     targetNodeId: string | null
+    recommendationId: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -14918,6 +14957,7 @@ export namespace Prisma {
     id: number
     sourceNodeId: number
     targetNodeId: number
+    recommendationId: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -14928,6 +14968,7 @@ export namespace Prisma {
     id?: true
     sourceNodeId?: true
     targetNodeId?: true
+    recommendationId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -14936,6 +14977,7 @@ export namespace Prisma {
     id?: true
     sourceNodeId?: true
     targetNodeId?: true
+    recommendationId?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -14944,6 +14986,7 @@ export namespace Prisma {
     id?: true
     sourceNodeId?: true
     targetNodeId?: true
+    recommendationId?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -15025,6 +15068,7 @@ export namespace Prisma {
     id: string
     sourceNodeId: string
     targetNodeId: string
+    recommendationId: string
     createdAt: Date
     updatedAt: Date
     _count: EdgeCountAggregateOutputType | null
@@ -15050,52 +15094,62 @@ export namespace Prisma {
     id?: boolean
     sourceNodeId?: boolean
     targetNodeId?: boolean
+    recommendationId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     sourceNode?: boolean | NodeDefaultArgs<ExtArgs>
     targetNode?: boolean | NodeDefaultArgs<ExtArgs>
+    recommendation?: boolean | RecommendationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["edge"]>
 
   export type EdgeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     sourceNodeId?: boolean
     targetNodeId?: boolean
+    recommendationId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     sourceNode?: boolean | NodeDefaultArgs<ExtArgs>
     targetNode?: boolean | NodeDefaultArgs<ExtArgs>
+    recommendation?: boolean | RecommendationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["edge"]>
 
   export type EdgeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     sourceNodeId?: boolean
     targetNodeId?: boolean
+    recommendationId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     sourceNode?: boolean | NodeDefaultArgs<ExtArgs>
     targetNode?: boolean | NodeDefaultArgs<ExtArgs>
+    recommendation?: boolean | RecommendationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["edge"]>
 
   export type EdgeSelectScalar = {
     id?: boolean
     sourceNodeId?: boolean
     targetNodeId?: boolean
+    recommendationId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type EdgeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "sourceNodeId" | "targetNodeId" | "createdAt" | "updatedAt", ExtArgs["result"]["edge"]>
+  export type EdgeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "sourceNodeId" | "targetNodeId" | "recommendationId" | "createdAt" | "updatedAt", ExtArgs["result"]["edge"]>
   export type EdgeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sourceNode?: boolean | NodeDefaultArgs<ExtArgs>
     targetNode?: boolean | NodeDefaultArgs<ExtArgs>
+    recommendation?: boolean | RecommendationDefaultArgs<ExtArgs>
   }
   export type EdgeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sourceNode?: boolean | NodeDefaultArgs<ExtArgs>
     targetNode?: boolean | NodeDefaultArgs<ExtArgs>
+    recommendation?: boolean | RecommendationDefaultArgs<ExtArgs>
   }
   export type EdgeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     sourceNode?: boolean | NodeDefaultArgs<ExtArgs>
     targetNode?: boolean | NodeDefaultArgs<ExtArgs>
+    recommendation?: boolean | RecommendationDefaultArgs<ExtArgs>
   }
 
   export type $EdgePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -15103,11 +15157,13 @@ export namespace Prisma {
     objects: {
       sourceNode: Prisma.$NodePayload<ExtArgs>
       targetNode: Prisma.$NodePayload<ExtArgs>
+      recommendation: Prisma.$RecommendationPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       sourceNodeId: string
       targetNodeId: string
+      recommendationId: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["edge"]>
@@ -15506,6 +15562,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     sourceNode<T extends NodeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, NodeDefaultArgs<ExtArgs>>): Prisma__NodeClient<$Result.GetResult<Prisma.$NodePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     targetNode<T extends NodeDefaultArgs<ExtArgs> = {}>(args?: Subset<T, NodeDefaultArgs<ExtArgs>>): Prisma__NodeClient<$Result.GetResult<Prisma.$NodePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    recommendation<T extends RecommendationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RecommendationDefaultArgs<ExtArgs>>): Prisma__RecommendationClient<$Result.GetResult<Prisma.$RecommendationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -15538,6 +15595,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Edge", 'String'>
     readonly sourceNodeId: FieldRef<"Edge", 'String'>
     readonly targetNodeId: FieldRef<"Edge", 'String'>
+    readonly recommendationId: FieldRef<"Edge", 'String'>
     readonly createdAt: FieldRef<"Edge", 'DateTime'>
     readonly updatedAt: FieldRef<"Edge", 'DateTime'>
   }
@@ -18324,6 +18382,7 @@ export namespace Prisma {
     id: 'id',
     sourceNodeId: 'sourceNodeId',
     targetNodeId: 'targetNodeId',
+    recommendationId: 'recommendationId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -19221,6 +19280,7 @@ export namespace Prisma {
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     community?: XOR<CommunityNullableScalarRelationFilter, CommunityWhereInput> | null
     nodes?: NodeListRelationFilter
+    edges?: EdgeListRelationFilter
     tasks?: TaskListRelationFilter
     userProgresses?: UserProgressListRelationFilter
   }
@@ -19237,6 +19297,7 @@ export namespace Prisma {
     user?: UserOrderByWithRelationInput
     community?: CommunityOrderByWithRelationInput
     nodes?: NodeOrderByRelationAggregateInput
+    edges?: EdgeOrderByRelationAggregateInput
     tasks?: TaskOrderByRelationAggregateInput
     userProgresses?: UserProgressOrderByRelationAggregateInput
   }
@@ -19256,6 +19317,7 @@ export namespace Prisma {
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     community?: XOR<CommunityNullableScalarRelationFilter, CommunityWhereInput> | null
     nodes?: NodeListRelationFilter
+    edges?: EdgeListRelationFilter
     tasks?: TaskListRelationFilter
     userProgresses?: UserProgressListRelationFilter
   }, "id">
@@ -19366,20 +19428,24 @@ export namespace Prisma {
     id?: StringFilter<"Edge"> | string
     sourceNodeId?: StringFilter<"Edge"> | string
     targetNodeId?: StringFilter<"Edge"> | string
+    recommendationId?: StringFilter<"Edge"> | string
     createdAt?: DateTimeFilter<"Edge"> | Date | string
     updatedAt?: DateTimeFilter<"Edge"> | Date | string
     sourceNode?: XOR<NodeScalarRelationFilter, NodeWhereInput>
     targetNode?: XOR<NodeScalarRelationFilter, NodeWhereInput>
+    recommendation?: XOR<RecommendationScalarRelationFilter, RecommendationWhereInput>
   }
 
   export type EdgeOrderByWithRelationInput = {
     id?: SortOrder
     sourceNodeId?: SortOrder
     targetNodeId?: SortOrder
+    recommendationId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     sourceNode?: NodeOrderByWithRelationInput
     targetNode?: NodeOrderByWithRelationInput
+    recommendation?: RecommendationOrderByWithRelationInput
   }
 
   export type EdgeWhereUniqueInput = Prisma.AtLeast<{
@@ -19389,16 +19455,19 @@ export namespace Prisma {
     NOT?: EdgeWhereInput | EdgeWhereInput[]
     sourceNodeId?: StringFilter<"Edge"> | string
     targetNodeId?: StringFilter<"Edge"> | string
+    recommendationId?: StringFilter<"Edge"> | string
     createdAt?: DateTimeFilter<"Edge"> | Date | string
     updatedAt?: DateTimeFilter<"Edge"> | Date | string
     sourceNode?: XOR<NodeScalarRelationFilter, NodeWhereInput>
     targetNode?: XOR<NodeScalarRelationFilter, NodeWhereInput>
+    recommendation?: XOR<RecommendationScalarRelationFilter, RecommendationWhereInput>
   }, "id">
 
   export type EdgeOrderByWithAggregationInput = {
     id?: SortOrder
     sourceNodeId?: SortOrder
     targetNodeId?: SortOrder
+    recommendationId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: EdgeCountOrderByAggregateInput
@@ -19413,6 +19482,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Edge"> | string
     sourceNodeId?: StringWithAggregatesFilter<"Edge"> | string
     targetNodeId?: StringWithAggregatesFilter<"Edge"> | string
+    recommendationId?: StringWithAggregatesFilter<"Edge"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Edge"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Edge"> | Date | string
   }
@@ -20254,6 +20324,7 @@ export namespace Prisma {
     user?: UserCreateNestedOneWithoutRecommendationsInput
     community?: CommunityCreateNestedOneWithoutRecommendationsInput
     nodes?: NodeCreateNestedManyWithoutRecommendationInput
+    edges?: EdgeCreateNestedManyWithoutRecommendationInput
     tasks?: TaskCreateNestedManyWithoutRecommendationInput
     userProgresses?: UserProgressCreateNestedManyWithoutRecommendationInput
   }
@@ -20268,6 +20339,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     nodes?: NodeUncheckedCreateNestedManyWithoutRecommendationInput
+    edges?: EdgeUncheckedCreateNestedManyWithoutRecommendationInput
     tasks?: TaskUncheckedCreateNestedManyWithoutRecommendationInput
     userProgresses?: UserProgressUncheckedCreateNestedManyWithoutRecommendationInput
   }
@@ -20282,6 +20354,7 @@ export namespace Prisma {
     user?: UserUpdateOneWithoutRecommendationsNestedInput
     community?: CommunityUpdateOneWithoutRecommendationsNestedInput
     nodes?: NodeUpdateManyWithoutRecommendationNestedInput
+    edges?: EdgeUpdateManyWithoutRecommendationNestedInput
     tasks?: TaskUpdateManyWithoutRecommendationNestedInput
     userProgresses?: UserProgressUpdateManyWithoutRecommendationNestedInput
   }
@@ -20296,6 +20369,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     nodes?: NodeUncheckedUpdateManyWithoutRecommendationNestedInput
+    edges?: EdgeUncheckedUpdateManyWithoutRecommendationNestedInput
     tasks?: TaskUncheckedUpdateManyWithoutRecommendationNestedInput
     userProgresses?: UserProgressUncheckedUpdateManyWithoutRecommendationNestedInput
   }
@@ -20414,12 +20488,14 @@ export namespace Prisma {
     updatedAt?: Date | string
     sourceNode: NodeCreateNestedOneWithoutOutgoingEdgesInput
     targetNode: NodeCreateNestedOneWithoutIncomingEdgesInput
+    recommendation: RecommendationCreateNestedOneWithoutEdgesInput
   }
 
   export type EdgeUncheckedCreateInput = {
     id?: string
     sourceNodeId: string
     targetNodeId: string
+    recommendationId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -20430,12 +20506,14 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sourceNode?: NodeUpdateOneRequiredWithoutOutgoingEdgesNestedInput
     targetNode?: NodeUpdateOneRequiredWithoutIncomingEdgesNestedInput
+    recommendation?: RecommendationUpdateOneRequiredWithoutEdgesNestedInput
   }
 
   export type EdgeUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     sourceNodeId?: StringFieldUpdateOperationsInput | string
     targetNodeId?: StringFieldUpdateOperationsInput | string
+    recommendationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -20444,6 +20522,7 @@ export namespace Prisma {
     id?: string
     sourceNodeId: string
     targetNodeId: string
+    recommendationId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -20458,6 +20537,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     sourceNodeId?: StringFieldUpdateOperationsInput | string
     targetNodeId?: StringFieldUpdateOperationsInput | string
+    recommendationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -21219,7 +21299,17 @@ export namespace Prisma {
     none?: NodeWhereInput
   }
 
+  export type EdgeListRelationFilter = {
+    every?: EdgeWhereInput
+    some?: EdgeWhereInput
+    none?: EdgeWhereInput
+  }
+
   export type NodeOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type EdgeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -21311,16 +21401,6 @@ export namespace Prisma {
     isNot?: RecommendationWhereInput
   }
 
-  export type EdgeListRelationFilter = {
-    every?: EdgeWhereInput
-    some?: EdgeWhereInput
-    none?: EdgeWhereInput
-  }
-
-  export type EdgeOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type NodeCountOrderByAggregateInput = {
     id?: SortOrder
     recommendationId?: SortOrder
@@ -21394,6 +21474,7 @@ export namespace Prisma {
     id?: SortOrder
     sourceNodeId?: SortOrder
     targetNodeId?: SortOrder
+    recommendationId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -21402,6 +21483,7 @@ export namespace Prisma {
     id?: SortOrder
     sourceNodeId?: SortOrder
     targetNodeId?: SortOrder
+    recommendationId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -21410,6 +21492,7 @@ export namespace Prisma {
     id?: SortOrder
     sourceNodeId?: SortOrder
     targetNodeId?: SortOrder
+    recommendationId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -22223,6 +22306,13 @@ export namespace Prisma {
     connect?: NodeWhereUniqueInput | NodeWhereUniqueInput[]
   }
 
+  export type EdgeCreateNestedManyWithoutRecommendationInput = {
+    create?: XOR<EdgeCreateWithoutRecommendationInput, EdgeUncheckedCreateWithoutRecommendationInput> | EdgeCreateWithoutRecommendationInput[] | EdgeUncheckedCreateWithoutRecommendationInput[]
+    connectOrCreate?: EdgeCreateOrConnectWithoutRecommendationInput | EdgeCreateOrConnectWithoutRecommendationInput[]
+    createMany?: EdgeCreateManyRecommendationInputEnvelope
+    connect?: EdgeWhereUniqueInput | EdgeWhereUniqueInput[]
+  }
+
   export type TaskCreateNestedManyWithoutRecommendationInput = {
     create?: XOR<TaskCreateWithoutRecommendationInput, TaskUncheckedCreateWithoutRecommendationInput> | TaskCreateWithoutRecommendationInput[] | TaskUncheckedCreateWithoutRecommendationInput[]
     connectOrCreate?: TaskCreateOrConnectWithoutRecommendationInput | TaskCreateOrConnectWithoutRecommendationInput[]
@@ -22242,6 +22332,13 @@ export namespace Prisma {
     connectOrCreate?: NodeCreateOrConnectWithoutRecommendationInput | NodeCreateOrConnectWithoutRecommendationInput[]
     createMany?: NodeCreateManyRecommendationInputEnvelope
     connect?: NodeWhereUniqueInput | NodeWhereUniqueInput[]
+  }
+
+  export type EdgeUncheckedCreateNestedManyWithoutRecommendationInput = {
+    create?: XOR<EdgeCreateWithoutRecommendationInput, EdgeUncheckedCreateWithoutRecommendationInput> | EdgeCreateWithoutRecommendationInput[] | EdgeUncheckedCreateWithoutRecommendationInput[]
+    connectOrCreate?: EdgeCreateOrConnectWithoutRecommendationInput | EdgeCreateOrConnectWithoutRecommendationInput[]
+    createMany?: EdgeCreateManyRecommendationInputEnvelope
+    connect?: EdgeWhereUniqueInput | EdgeWhereUniqueInput[]
   }
 
   export type TaskUncheckedCreateNestedManyWithoutRecommendationInput = {
@@ -22300,6 +22397,20 @@ export namespace Prisma {
     deleteMany?: NodeScalarWhereInput | NodeScalarWhereInput[]
   }
 
+  export type EdgeUpdateManyWithoutRecommendationNestedInput = {
+    create?: XOR<EdgeCreateWithoutRecommendationInput, EdgeUncheckedCreateWithoutRecommendationInput> | EdgeCreateWithoutRecommendationInput[] | EdgeUncheckedCreateWithoutRecommendationInput[]
+    connectOrCreate?: EdgeCreateOrConnectWithoutRecommendationInput | EdgeCreateOrConnectWithoutRecommendationInput[]
+    upsert?: EdgeUpsertWithWhereUniqueWithoutRecommendationInput | EdgeUpsertWithWhereUniqueWithoutRecommendationInput[]
+    createMany?: EdgeCreateManyRecommendationInputEnvelope
+    set?: EdgeWhereUniqueInput | EdgeWhereUniqueInput[]
+    disconnect?: EdgeWhereUniqueInput | EdgeWhereUniqueInput[]
+    delete?: EdgeWhereUniqueInput | EdgeWhereUniqueInput[]
+    connect?: EdgeWhereUniqueInput | EdgeWhereUniqueInput[]
+    update?: EdgeUpdateWithWhereUniqueWithoutRecommendationInput | EdgeUpdateWithWhereUniqueWithoutRecommendationInput[]
+    updateMany?: EdgeUpdateManyWithWhereWithoutRecommendationInput | EdgeUpdateManyWithWhereWithoutRecommendationInput[]
+    deleteMany?: EdgeScalarWhereInput | EdgeScalarWhereInput[]
+  }
+
   export type TaskUpdateManyWithoutRecommendationNestedInput = {
     create?: XOR<TaskCreateWithoutRecommendationInput, TaskUncheckedCreateWithoutRecommendationInput> | TaskCreateWithoutRecommendationInput[] | TaskUncheckedCreateWithoutRecommendationInput[]
     connectOrCreate?: TaskCreateOrConnectWithoutRecommendationInput | TaskCreateOrConnectWithoutRecommendationInput[]
@@ -22340,6 +22451,20 @@ export namespace Prisma {
     update?: NodeUpdateWithWhereUniqueWithoutRecommendationInput | NodeUpdateWithWhereUniqueWithoutRecommendationInput[]
     updateMany?: NodeUpdateManyWithWhereWithoutRecommendationInput | NodeUpdateManyWithWhereWithoutRecommendationInput[]
     deleteMany?: NodeScalarWhereInput | NodeScalarWhereInput[]
+  }
+
+  export type EdgeUncheckedUpdateManyWithoutRecommendationNestedInput = {
+    create?: XOR<EdgeCreateWithoutRecommendationInput, EdgeUncheckedCreateWithoutRecommendationInput> | EdgeCreateWithoutRecommendationInput[] | EdgeUncheckedCreateWithoutRecommendationInput[]
+    connectOrCreate?: EdgeCreateOrConnectWithoutRecommendationInput | EdgeCreateOrConnectWithoutRecommendationInput[]
+    upsert?: EdgeUpsertWithWhereUniqueWithoutRecommendationInput | EdgeUpsertWithWhereUniqueWithoutRecommendationInput[]
+    createMany?: EdgeCreateManyRecommendationInputEnvelope
+    set?: EdgeWhereUniqueInput | EdgeWhereUniqueInput[]
+    disconnect?: EdgeWhereUniqueInput | EdgeWhereUniqueInput[]
+    delete?: EdgeWhereUniqueInput | EdgeWhereUniqueInput[]
+    connect?: EdgeWhereUniqueInput | EdgeWhereUniqueInput[]
+    update?: EdgeUpdateWithWhereUniqueWithoutRecommendationInput | EdgeUpdateWithWhereUniqueWithoutRecommendationInput[]
+    updateMany?: EdgeUpdateManyWithWhereWithoutRecommendationInput | EdgeUpdateManyWithWhereWithoutRecommendationInput[]
+    deleteMany?: EdgeScalarWhereInput | EdgeScalarWhereInput[]
   }
 
   export type TaskUncheckedUpdateManyWithoutRecommendationNestedInput = {
@@ -22484,6 +22609,12 @@ export namespace Prisma {
     connect?: NodeWhereUniqueInput
   }
 
+  export type RecommendationCreateNestedOneWithoutEdgesInput = {
+    create?: XOR<RecommendationCreateWithoutEdgesInput, RecommendationUncheckedCreateWithoutEdgesInput>
+    connectOrCreate?: RecommendationCreateOrConnectWithoutEdgesInput
+    connect?: RecommendationWhereUniqueInput
+  }
+
   export type NodeUpdateOneRequiredWithoutOutgoingEdgesNestedInput = {
     create?: XOR<NodeCreateWithoutOutgoingEdgesInput, NodeUncheckedCreateWithoutOutgoingEdgesInput>
     connectOrCreate?: NodeCreateOrConnectWithoutOutgoingEdgesInput
@@ -22498,6 +22629,14 @@ export namespace Prisma {
     upsert?: NodeUpsertWithoutIncomingEdgesInput
     connect?: NodeWhereUniqueInput
     update?: XOR<XOR<NodeUpdateToOneWithWhereWithoutIncomingEdgesInput, NodeUpdateWithoutIncomingEdgesInput>, NodeUncheckedUpdateWithoutIncomingEdgesInput>
+  }
+
+  export type RecommendationUpdateOneRequiredWithoutEdgesNestedInput = {
+    create?: XOR<RecommendationCreateWithoutEdgesInput, RecommendationUncheckedCreateWithoutEdgesInput>
+    connectOrCreate?: RecommendationCreateOrConnectWithoutEdgesInput
+    upsert?: RecommendationUpsertWithoutEdgesInput
+    connect?: RecommendationWhereUniqueInput
+    update?: XOR<XOR<RecommendationUpdateToOneWithWhereWithoutEdgesInput, RecommendationUpdateWithoutEdgesInput>, RecommendationUncheckedUpdateWithoutEdgesInput>
   }
 
   export type UserCreateNestedOneWithoutTasksInput = {
@@ -23130,6 +23269,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     community?: CommunityCreateNestedOneWithoutRecommendationsInput
     nodes?: NodeCreateNestedManyWithoutRecommendationInput
+    edges?: EdgeCreateNestedManyWithoutRecommendationInput
     tasks?: TaskCreateNestedManyWithoutRecommendationInput
     userProgresses?: UserProgressCreateNestedManyWithoutRecommendationInput
   }
@@ -23143,6 +23283,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     nodes?: NodeUncheckedCreateNestedManyWithoutRecommendationInput
+    edges?: EdgeUncheckedCreateNestedManyWithoutRecommendationInput
     tasks?: TaskUncheckedCreateNestedManyWithoutRecommendationInput
     userProgresses?: UserProgressUncheckedCreateNestedManyWithoutRecommendationInput
   }
@@ -23550,6 +23691,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     user?: UserCreateNestedOneWithoutRecommendationsInput
     nodes?: NodeCreateNestedManyWithoutRecommendationInput
+    edges?: EdgeCreateNestedManyWithoutRecommendationInput
     tasks?: TaskCreateNestedManyWithoutRecommendationInput
     userProgresses?: UserProgressCreateNestedManyWithoutRecommendationInput
   }
@@ -23563,6 +23705,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     nodes?: NodeUncheckedCreateNestedManyWithoutRecommendationInput
+    edges?: EdgeUncheckedCreateNestedManyWithoutRecommendationInput
     tasks?: TaskUncheckedCreateNestedManyWithoutRecommendationInput
     userProgresses?: UserProgressUncheckedCreateNestedManyWithoutRecommendationInput
   }
@@ -24486,6 +24629,32 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type EdgeCreateWithoutRecommendationInput = {
+    id?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    sourceNode: NodeCreateNestedOneWithoutOutgoingEdgesInput
+    targetNode: NodeCreateNestedOneWithoutIncomingEdgesInput
+  }
+
+  export type EdgeUncheckedCreateWithoutRecommendationInput = {
+    id?: string
+    sourceNodeId: string
+    targetNodeId: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EdgeCreateOrConnectWithoutRecommendationInput = {
+    where: EdgeWhereUniqueInput
+    create: XOR<EdgeCreateWithoutRecommendationInput, EdgeUncheckedCreateWithoutRecommendationInput>
+  }
+
+  export type EdgeCreateManyRecommendationInputEnvelope = {
+    data: EdgeCreateManyRecommendationInput | EdgeCreateManyRecommendationInput[]
+    skipDuplicates?: boolean
+  }
+
   export type TaskCreateWithoutRecommendationInput = {
     id?: string
     taskName: string
@@ -24655,6 +24824,34 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Node"> | Date | string
   }
 
+  export type EdgeUpsertWithWhereUniqueWithoutRecommendationInput = {
+    where: EdgeWhereUniqueInput
+    update: XOR<EdgeUpdateWithoutRecommendationInput, EdgeUncheckedUpdateWithoutRecommendationInput>
+    create: XOR<EdgeCreateWithoutRecommendationInput, EdgeUncheckedCreateWithoutRecommendationInput>
+  }
+
+  export type EdgeUpdateWithWhereUniqueWithoutRecommendationInput = {
+    where: EdgeWhereUniqueInput
+    data: XOR<EdgeUpdateWithoutRecommendationInput, EdgeUncheckedUpdateWithoutRecommendationInput>
+  }
+
+  export type EdgeUpdateManyWithWhereWithoutRecommendationInput = {
+    where: EdgeScalarWhereInput
+    data: XOR<EdgeUpdateManyMutationInput, EdgeUncheckedUpdateManyWithoutRecommendationInput>
+  }
+
+  export type EdgeScalarWhereInput = {
+    AND?: EdgeScalarWhereInput | EdgeScalarWhereInput[]
+    OR?: EdgeScalarWhereInput[]
+    NOT?: EdgeScalarWhereInput | EdgeScalarWhereInput[]
+    id?: StringFilter<"Edge"> | string
+    sourceNodeId?: StringFilter<"Edge"> | string
+    targetNodeId?: StringFilter<"Edge"> | string
+    recommendationId?: StringFilter<"Edge"> | string
+    createdAt?: DateTimeFilter<"Edge"> | Date | string
+    updatedAt?: DateTimeFilter<"Edge"> | Date | string
+  }
+
   export type TaskUpsertWithWhereUniqueWithoutRecommendationInput = {
     where: TaskWhereUniqueInput
     update: XOR<TaskUpdateWithoutRecommendationInput, TaskUncheckedUpdateWithoutRecommendationInput>
@@ -24696,6 +24893,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     user?: UserCreateNestedOneWithoutRecommendationsInput
     community?: CommunityCreateNestedOneWithoutRecommendationsInput
+    edges?: EdgeCreateNestedManyWithoutRecommendationInput
     tasks?: TaskCreateNestedManyWithoutRecommendationInput
     userProgresses?: UserProgressCreateNestedManyWithoutRecommendationInput
   }
@@ -24709,6 +24907,7 @@ export namespace Prisma {
     status: $Enums.RecommendationStatus
     createdAt?: Date | string
     updatedAt?: Date | string
+    edges?: EdgeUncheckedCreateNestedManyWithoutRecommendationInput
     tasks?: TaskUncheckedCreateNestedManyWithoutRecommendationInput
     userProgresses?: UserProgressUncheckedCreateNestedManyWithoutRecommendationInput
   }
@@ -24723,11 +24922,13 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     targetNode: NodeCreateNestedOneWithoutIncomingEdgesInput
+    recommendation: RecommendationCreateNestedOneWithoutEdgesInput
   }
 
   export type EdgeUncheckedCreateWithoutSourceNodeInput = {
     id?: string
     targetNodeId: string
+    recommendationId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -24747,11 +24948,13 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     sourceNode: NodeCreateNestedOneWithoutOutgoingEdgesInput
+    recommendation: RecommendationCreateNestedOneWithoutEdgesInput
   }
 
   export type EdgeUncheckedCreateWithoutTargetNodeInput = {
     id?: string
     sourceNodeId: string
+    recommendationId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -24786,6 +24989,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneWithoutRecommendationsNestedInput
     community?: CommunityUpdateOneWithoutRecommendationsNestedInput
+    edges?: EdgeUpdateManyWithoutRecommendationNestedInput
     tasks?: TaskUpdateManyWithoutRecommendationNestedInput
     userProgresses?: UserProgressUpdateManyWithoutRecommendationNestedInput
   }
@@ -24799,6 +25003,7 @@ export namespace Prisma {
     status?: EnumRecommendationStatusFieldUpdateOperationsInput | $Enums.RecommendationStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    edges?: EdgeUncheckedUpdateManyWithoutRecommendationNestedInput
     tasks?: TaskUncheckedUpdateManyWithoutRecommendationNestedInput
     userProgresses?: UserProgressUncheckedUpdateManyWithoutRecommendationNestedInput
   }
@@ -24817,17 +25022,6 @@ export namespace Prisma {
   export type EdgeUpdateManyWithWhereWithoutSourceNodeInput = {
     where: EdgeScalarWhereInput
     data: XOR<EdgeUpdateManyMutationInput, EdgeUncheckedUpdateManyWithoutSourceNodeInput>
-  }
-
-  export type EdgeScalarWhereInput = {
-    AND?: EdgeScalarWhereInput | EdgeScalarWhereInput[]
-    OR?: EdgeScalarWhereInput[]
-    NOT?: EdgeScalarWhereInput | EdgeScalarWhereInput[]
-    id?: StringFilter<"Edge"> | string
-    sourceNodeId?: StringFilter<"Edge"> | string
-    targetNodeId?: StringFilter<"Edge"> | string
-    createdAt?: DateTimeFilter<"Edge"> | Date | string
-    updatedAt?: DateTimeFilter<"Edge"> | Date | string
   }
 
   export type EdgeUpsertWithWhereUniqueWithoutTargetNodeInput = {
@@ -24900,6 +25094,39 @@ export namespace Prisma {
     create: XOR<NodeCreateWithoutIncomingEdgesInput, NodeUncheckedCreateWithoutIncomingEdgesInput>
   }
 
+  export type RecommendationCreateWithoutEdgesInput = {
+    id?: string
+    recommendation: string
+    category: $Enums.RecommendationCategory
+    status: $Enums.RecommendationStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user?: UserCreateNestedOneWithoutRecommendationsInput
+    community?: CommunityCreateNestedOneWithoutRecommendationsInput
+    nodes?: NodeCreateNestedManyWithoutRecommendationInput
+    tasks?: TaskCreateNestedManyWithoutRecommendationInput
+    userProgresses?: UserProgressCreateNestedManyWithoutRecommendationInput
+  }
+
+  export type RecommendationUncheckedCreateWithoutEdgesInput = {
+    id?: string
+    userId?: string | null
+    communityId?: string | null
+    recommendation: string
+    category: $Enums.RecommendationCategory
+    status: $Enums.RecommendationStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    nodes?: NodeUncheckedCreateNestedManyWithoutRecommendationInput
+    tasks?: TaskUncheckedCreateNestedManyWithoutRecommendationInput
+    userProgresses?: UserProgressUncheckedCreateNestedManyWithoutRecommendationInput
+  }
+
+  export type RecommendationCreateOrConnectWithoutEdgesInput = {
+    where: RecommendationWhereUniqueInput
+    create: XOR<RecommendationCreateWithoutEdgesInput, RecommendationUncheckedCreateWithoutEdgesInput>
+  }
+
   export type NodeUpsertWithoutOutgoingEdgesInput = {
     update: XOR<NodeUpdateWithoutOutgoingEdgesInput, NodeUncheckedUpdateWithoutOutgoingEdgesInput>
     create: XOR<NodeCreateWithoutOutgoingEdgesInput, NodeUncheckedCreateWithoutOutgoingEdgesInput>
@@ -24966,6 +25193,45 @@ export namespace Prisma {
     outgoingEdges?: EdgeUncheckedUpdateManyWithoutSourceNodeNestedInput
   }
 
+  export type RecommendationUpsertWithoutEdgesInput = {
+    update: XOR<RecommendationUpdateWithoutEdgesInput, RecommendationUncheckedUpdateWithoutEdgesInput>
+    create: XOR<RecommendationCreateWithoutEdgesInput, RecommendationUncheckedCreateWithoutEdgesInput>
+    where?: RecommendationWhereInput
+  }
+
+  export type RecommendationUpdateToOneWithWhereWithoutEdgesInput = {
+    where?: RecommendationWhereInput
+    data: XOR<RecommendationUpdateWithoutEdgesInput, RecommendationUncheckedUpdateWithoutEdgesInput>
+  }
+
+  export type RecommendationUpdateWithoutEdgesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    recommendation?: StringFieldUpdateOperationsInput | string
+    category?: EnumRecommendationCategoryFieldUpdateOperationsInput | $Enums.RecommendationCategory
+    status?: EnumRecommendationStatusFieldUpdateOperationsInput | $Enums.RecommendationStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneWithoutRecommendationsNestedInput
+    community?: CommunityUpdateOneWithoutRecommendationsNestedInput
+    nodes?: NodeUpdateManyWithoutRecommendationNestedInput
+    tasks?: TaskUpdateManyWithoutRecommendationNestedInput
+    userProgresses?: UserProgressUpdateManyWithoutRecommendationNestedInput
+  }
+
+  export type RecommendationUncheckedUpdateWithoutEdgesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    communityId?: NullableStringFieldUpdateOperationsInput | string | null
+    recommendation?: StringFieldUpdateOperationsInput | string
+    category?: EnumRecommendationCategoryFieldUpdateOperationsInput | $Enums.RecommendationCategory
+    status?: EnumRecommendationStatusFieldUpdateOperationsInput | $Enums.RecommendationStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    nodes?: NodeUncheckedUpdateManyWithoutRecommendationNestedInput
+    tasks?: TaskUncheckedUpdateManyWithoutRecommendationNestedInput
+    userProgresses?: UserProgressUncheckedUpdateManyWithoutRecommendationNestedInput
+  }
+
   export type UserCreateWithoutTasksInput = {
     id?: string
     email: string
@@ -25021,6 +25287,7 @@ export namespace Prisma {
     user?: UserCreateNestedOneWithoutRecommendationsInput
     community?: CommunityCreateNestedOneWithoutRecommendationsInput
     nodes?: NodeCreateNestedManyWithoutRecommendationInput
+    edges?: EdgeCreateNestedManyWithoutRecommendationInput
     userProgresses?: UserProgressCreateNestedManyWithoutRecommendationInput
   }
 
@@ -25034,6 +25301,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     nodes?: NodeUncheckedCreateNestedManyWithoutRecommendationInput
+    edges?: EdgeUncheckedCreateNestedManyWithoutRecommendationInput
     userProgresses?: UserProgressUncheckedCreateNestedManyWithoutRecommendationInput
   }
 
@@ -25114,6 +25382,7 @@ export namespace Prisma {
     user?: UserUpdateOneWithoutRecommendationsNestedInput
     community?: CommunityUpdateOneWithoutRecommendationsNestedInput
     nodes?: NodeUpdateManyWithoutRecommendationNestedInput
+    edges?: EdgeUpdateManyWithoutRecommendationNestedInput
     userProgresses?: UserProgressUpdateManyWithoutRecommendationNestedInput
   }
 
@@ -25127,6 +25396,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     nodes?: NodeUncheckedUpdateManyWithoutRecommendationNestedInput
+    edges?: EdgeUncheckedUpdateManyWithoutRecommendationNestedInput
     userProgresses?: UserProgressUncheckedUpdateManyWithoutRecommendationNestedInput
   }
 
@@ -25185,6 +25455,7 @@ export namespace Prisma {
     user?: UserCreateNestedOneWithoutRecommendationsInput
     community?: CommunityCreateNestedOneWithoutRecommendationsInput
     nodes?: NodeCreateNestedManyWithoutRecommendationInput
+    edges?: EdgeCreateNestedManyWithoutRecommendationInput
     tasks?: TaskCreateNestedManyWithoutRecommendationInput
   }
 
@@ -25198,6 +25469,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     nodes?: NodeUncheckedCreateNestedManyWithoutRecommendationInput
+    edges?: EdgeUncheckedCreateNestedManyWithoutRecommendationInput
     tasks?: TaskUncheckedCreateNestedManyWithoutRecommendationInput
   }
 
@@ -25278,6 +25550,7 @@ export namespace Prisma {
     user?: UserUpdateOneWithoutRecommendationsNestedInput
     community?: CommunityUpdateOneWithoutRecommendationsNestedInput
     nodes?: NodeUpdateManyWithoutRecommendationNestedInput
+    edges?: EdgeUpdateManyWithoutRecommendationNestedInput
     tasks?: TaskUpdateManyWithoutRecommendationNestedInput
   }
 
@@ -25291,6 +25564,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     nodes?: NodeUncheckedUpdateManyWithoutRecommendationNestedInput
+    edges?: EdgeUncheckedUpdateManyWithoutRecommendationNestedInput
     tasks?: TaskUncheckedUpdateManyWithoutRecommendationNestedInput
   }
 
@@ -25651,6 +25925,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     community?: CommunityUpdateOneWithoutRecommendationsNestedInput
     nodes?: NodeUpdateManyWithoutRecommendationNestedInput
+    edges?: EdgeUpdateManyWithoutRecommendationNestedInput
     tasks?: TaskUpdateManyWithoutRecommendationNestedInput
     userProgresses?: UserProgressUpdateManyWithoutRecommendationNestedInput
   }
@@ -25664,6 +25939,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     nodes?: NodeUncheckedUpdateManyWithoutRecommendationNestedInput
+    edges?: EdgeUncheckedUpdateManyWithoutRecommendationNestedInput
     tasks?: TaskUncheckedUpdateManyWithoutRecommendationNestedInput
     userProgresses?: UserProgressUncheckedUpdateManyWithoutRecommendationNestedInput
   }
@@ -25749,6 +26025,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneWithoutRecommendationsNestedInput
     nodes?: NodeUpdateManyWithoutRecommendationNestedInput
+    edges?: EdgeUpdateManyWithoutRecommendationNestedInput
     tasks?: TaskUpdateManyWithoutRecommendationNestedInput
     userProgresses?: UserProgressUpdateManyWithoutRecommendationNestedInput
   }
@@ -25762,6 +26039,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     nodes?: NodeUncheckedUpdateManyWithoutRecommendationNestedInput
+    edges?: EdgeUncheckedUpdateManyWithoutRecommendationNestedInput
     tasks?: TaskUncheckedUpdateManyWithoutRecommendationNestedInput
     userProgresses?: UserProgressUncheckedUpdateManyWithoutRecommendationNestedInput
   }
@@ -25781,6 +26059,14 @@ export namespace Prisma {
     label: string
     status: $Enums.NodeStatus
     position: JsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type EdgeCreateManyRecommendationInput = {
+    id?: string
+    sourceNodeId: string
+    targetNodeId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -25829,6 +26115,30 @@ export namespace Prisma {
     label?: StringFieldUpdateOperationsInput | string
     status?: EnumNodeStatusFieldUpdateOperationsInput | $Enums.NodeStatus
     position?: JsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EdgeUpdateWithoutRecommendationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    sourceNode?: NodeUpdateOneRequiredWithoutOutgoingEdgesNestedInput
+    targetNode?: NodeUpdateOneRequiredWithoutIncomingEdgesNestedInput
+  }
+
+  export type EdgeUncheckedUpdateWithoutRecommendationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sourceNodeId?: StringFieldUpdateOperationsInput | string
+    targetNodeId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type EdgeUncheckedUpdateManyWithoutRecommendationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sourceNodeId?: StringFieldUpdateOperationsInput | string
+    targetNodeId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -25887,6 +26197,7 @@ export namespace Prisma {
   export type EdgeCreateManySourceNodeInput = {
     id?: string
     targetNodeId: string
+    recommendationId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -25894,6 +26205,7 @@ export namespace Prisma {
   export type EdgeCreateManyTargetNodeInput = {
     id?: string
     sourceNodeId: string
+    recommendationId: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -25903,11 +26215,13 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     targetNode?: NodeUpdateOneRequiredWithoutIncomingEdgesNestedInput
+    recommendation?: RecommendationUpdateOneRequiredWithoutEdgesNestedInput
   }
 
   export type EdgeUncheckedUpdateWithoutSourceNodeInput = {
     id?: StringFieldUpdateOperationsInput | string
     targetNodeId?: StringFieldUpdateOperationsInput | string
+    recommendationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -25915,6 +26229,7 @@ export namespace Prisma {
   export type EdgeUncheckedUpdateManyWithoutSourceNodeInput = {
     id?: StringFieldUpdateOperationsInput | string
     targetNodeId?: StringFieldUpdateOperationsInput | string
+    recommendationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -25924,11 +26239,13 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sourceNode?: NodeUpdateOneRequiredWithoutOutgoingEdgesNestedInput
+    recommendation?: RecommendationUpdateOneRequiredWithoutEdgesNestedInput
   }
 
   export type EdgeUncheckedUpdateWithoutTargetNodeInput = {
     id?: StringFieldUpdateOperationsInput | string
     sourceNodeId?: StringFieldUpdateOperationsInput | string
+    recommendationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -25936,6 +26253,7 @@ export namespace Prisma {
   export type EdgeUncheckedUpdateManyWithoutTargetNodeInput = {
     id?: StringFieldUpdateOperationsInput | string
     sourceNodeId?: StringFieldUpdateOperationsInput | string
+    recommendationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

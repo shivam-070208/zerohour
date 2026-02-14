@@ -167,6 +167,7 @@ model Recommendation {
   category        RecommendationCategory
   status          RecommendationStatus
   nodes           Node[]       // Relation: A recommendation has many nodes
+  edges           Edge[]
   tasks           Task[]       // Tasks belonging to this recommendation
   userProgresses  UserProgress[] // Progresses for this recommendation
   createdAt       DateTime     @default(now())
@@ -209,13 +210,15 @@ enum NodeStatus {
 
 
 model Edge {
-  id           String   @id @default(uuid()) // Unique edge ID
-  sourceNodeId String
-  targetNodeId String
-  sourceNode   Node     @relation("SourceNode", fields: [sourceNodeId], references: [id])
-  targetNode   Node     @relation("TargetNode", fields: [targetNodeId], references: [id])
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id               String         @id @default(uuid()) // Unique edge ID
+  sourceNodeId     String
+  targetNodeId     String
+  recommendationId String
+  sourceNode       Node            @relation("SourceNode", fields: [sourceNodeId], references: [id])
+  targetNode       Node            @relation("TargetNode", fields: [targetNodeId], references: [id])
+  recommendation   Recommendation  @relation(fields: [recommendationId], references: [id])
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
 }
 
 

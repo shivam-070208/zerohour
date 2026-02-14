@@ -238,6 +238,7 @@ exports.Prisma.EdgeScalarFieldEnum = {
   id: 'id',
   sourceNodeId: 'sourceNodeId',
   targetNodeId: 'targetNodeId',
+  recommendationId: 'recommendationId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

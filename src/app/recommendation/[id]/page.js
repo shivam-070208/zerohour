@@ -30,7 +30,7 @@ export default function RecommendationPage() {
         const res = await fetch(`/api/recommendation/${id}`);
         const data = await res.json();
         if (!res.ok) throw new Error(data?.error || "Not found");
-
+        console.log(data)
         setRecommendation(data.recommendation);
         setNodes(data.nodes || []);
         setEdges(data.edges || []);
@@ -57,6 +57,7 @@ export default function RecommendationPage() {
           }),
         });
       } else if (recommendation?.communityId) {
+        
         await fetch("/api/workflow/regenerate", {
           method: "POST",
           headers: { "Content-Type": "application/json" },

@@ -57,8 +57,9 @@ export async function callGemini(prompt, options = {}) {
   }
 
   try {
+    console.log(process.env.GEMINI_API_KEY);
     const model = genAI.getGenerativeModel({
-      model: process.env.GEMINI_MODEL || "gemini-2.0-flash",
+      model:  "gemini-3-flash-preview",
       generationConfig: {
         responseMimeType: "application/json",
         responseSchema: workflowSchema,
@@ -68,12 +69,11 @@ export async function callGemini(prompt, options = {}) {
     });
 
     const result = await model.generateContent(prompt);
-    const responseText = result.response.text();
-    
+    const responseText =  result.response.text();
+
     try {
       return JSON.parse(responseText);
     } catch (e) {
-      console.error("Failed to parse structured response:", e);
       return { text: responseText };
     }
   } catch (error) {

@@ -21,11 +21,12 @@ const individualFn = inngest.createFunction(
       try {
         out = JSON.parse(resp.text);
       } catch (e) {
-        out = { text: resp.text };
+          out = { text: resp.text };
       }
     } else {
-      out = resp;
+        out = resp;
     }
+    console.log(out)
 
     // Persist to Prisma: create or update recommendation with nodes and edges
     try {
@@ -108,6 +109,7 @@ const communityFn = inngest.createFunction(
     const resp = await callGemini(prompt, { maxTokens: 1200 });
 
     let out = null;
+    console.log(resp)
     if (resp?.json) out = resp.json;
     else if (resp?.text) {
       try {
@@ -121,7 +123,8 @@ const communityFn = inngest.createFunction(
 
     // Persist to Prisma: create or update recommendation with nodes and edges
     try {
-      const communityId = data.communityId || "unknown";
+      const communityId = data.communityId;
+      console.log(communityId)
       const nodes = (out?.nodes || []).map((node) => ({
         label: node.data?.label || node.id,
         position: node.position || { x: 0, y: 0 },
