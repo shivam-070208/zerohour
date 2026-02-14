@@ -94,6 +94,7 @@ export default function SignupForm() {
       {
         onSuccess: () => {
           toast.dismiss(toastId);
+          router.push("/set-role");
           toast.info("Signed up successfully, redirecting");
         },
         onError: (err) => {
@@ -105,7 +106,6 @@ export default function SignupForm() {
         },
       }
     );
-  router.push("/set-role");
   };
 
   const handleGithubAuth = async (mode) => {

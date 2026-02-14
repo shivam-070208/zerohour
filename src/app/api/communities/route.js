@@ -9,7 +9,15 @@ export async function GET() {
         name: true,
         description: true,
         leaderId: true,
-        members: { select: { id: true } },
+        leader: {
+          select: { id: true, name: true, email: true }
+        },
+        members: { 
+          include: {
+            user: { select: { id: true, name: true, email: true } }
+          },
+          orderBy: { joinedAt: 'desc' }
+        },
       },
       orderBy: { name: "asc" },
     });
@@ -20,6 +28,12 @@ export async function GET() {
       description: c.description,
       memberCount: c.members.length,
       leaderId: c.leaderId,
+      leader: c.leader,
+      members: c.members.map(m => ({
+        id: m.id,
+        joinedAt: m.joinedAt,
+        user: m.user
+      }))
     }));
 
     return NextResponse.json({ communities: payload });

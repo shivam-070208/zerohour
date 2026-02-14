@@ -28,6 +28,7 @@ export default function ResidentPage() {
   const [userId, setUserId] = useState(null);
   const [error, setError] = useState(null);
   const [sending, setSending] = useState(false);
+  const [expandedCommunity, setExpandedCommunity] = useState(null);
 
   const load = async () => {
     try {
@@ -89,7 +90,9 @@ export default function ResidentPage() {
     );
   if (error)
     return (
-      <div className="p-8 text-red-600 flex items-center justify-center min-h-[40vh]">{error}</div>
+      <div className="p-8 text-red-600 flex items-center justify-center min-h-[40vh]">
+        {error}
+      </div>
     );
 
   if (isMember) {
@@ -125,11 +128,57 @@ export default function ResidentPage() {
               <CardDescription className="mt-1">
                 {c.description}
               </CardDescription>
+              {c.leader && (
+                <p className="text-xs text-gray-500 mt-2">
+                  Leader: {c.leader.name || c.leader.email}
+                </p>
+              )}
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-neutral-600">
+              <p className="text-sm text-neutral-600 mb-3">
                 Members: {c.memberCount}
               </p>
+
+              {/* Members List Collapsible */}
+              {c.members && c.members.length > 0 && (
+                <div className="mb-4 border-t pt-3">
+                  <button
+                    onClick={() =>
+                      setExpandedCommunity(
+                        expandedCommunity === c.id ? null : c.id
+                      )
+                    }
+                    className="text-sm font-medium text-primary hover:underline"
+                  >
+                    {expandedCommunity === c.id ? "Hide" : "Show"} Members
+                  </button>
+
+                  {expandedCommunity === c.id && (
+                    <div className="mt-2 space-y-2">
+                      {c.members.map((member) => (
+                        <div
+                          key={member.id}
+                          className="flex items-center justify-between rounded-md bg-gray-50 p-2 text-sm"
+                        >
+                          <div>
+                            <p className="font-medium">
+                              {member.user?.name || member.user?.email || "Unknown"}
+                            </p>
+                            <p className="text-xs text-gray-500">
+                              {member.user?.email}
+                            </p>
+                            <p className="text-xs text-gray-400">
+                              Joined:{" "}
+                              {new Date(member.joinedAt).toLocaleDateString()}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+
               <div className="mt-4">
                 <Button
                   disabled={userHasPending() || sending}
