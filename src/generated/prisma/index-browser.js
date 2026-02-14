@@ -135,7 +135,10 @@ exports.Prisma.CommunityScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
-  leaderId: 'leaderId'
+  leaderId: 'leaderId',
+  resourceUsage: 'resourceUsage',
+  infrastructure: 'infrastructure',
+  environmentalConcerns: 'environmentalConcerns'
 };
 
 exports.Prisma.MemberScalarFieldEnum = {
@@ -284,7 +287,8 @@ exports.Prisma.JsonNullValueFilter = {
 };
 exports.Role = exports.$Enums.Role = {
   RESIDENT: 'RESIDENT',
-  COMMUNITY_LEADER: 'COMMUNITY_LEADER'
+  COMMUNITY_LEADER: 'COMMUNITY_LEADER',
+  NOUSER: 'NOUSER'
 };
 
 exports.RequestStatus = exports.$Enums.RequestStatus = {

@@ -27,12 +27,7 @@ import Image from "next/image";
 import { toast } from "sonner";
 import { BottomGradient } from "@/components/ui/bottom-gradient";
 
-// Use Role enum values from schema.prisma: RESIDENT, COMMUNITY_LEADER
-const availableRoles = [
-  { value: "", label: "Choose a role" },
-  { value: "RESIDENT", label: "Resident" },
-  { value: "COMMUNITY_LEADER", label: "Community Leader" },
-];
+// Remove ROLE_VALUES and all "role" related code
 
 const signupFormValues = z.object({
   name: z
@@ -47,13 +42,11 @@ const signupFormValues = z.object({
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
       "Password must have at least one lowercase letter, one uppercase letter, one number, and one special character.",
     ),
-  role: z.enum(["RESIDENT", "COMMUNITY_LEADER"], {
-    errorMap: () => ({ message: "Role is required" }),
-  }),
+  // role field removed
 });
 
-// Helper for the signup form input keys
-const formFields = ["name", "email", "password", "role"];
+// Helper for the signup form input keys, now only ["name", "email", "password"]
+const formFields = ["name", "email", "password"];
 
 export default function SignupForm() {
   const signupFormInputs = {
@@ -73,7 +66,7 @@ export default function SignupForm() {
       type: "password",
       placeholder: "********",
     },
-    // role is handled separately as a select
+    // role is removed
   };
 
   const form = useForm({
@@ -81,20 +74,19 @@ export default function SignupForm() {
       name: "",
       email: "",
       password: "",
-      role: "",
+      // role is removed
     },
     resolver: zodResolver(signupFormValues),
   });
 
   const onSubmit = async (data) => {
     const toastId = toast.loading("Signing up");
-    // Add the name field to sign-up payload
+    // Do NOT send role anymore
     await authClient.signUp.email(
       {
         name: data.name,
         email: data.email,
         password: data.password,
-        role: data.role,
         callbackURL: "/",
       },
       {
@@ -187,10 +179,10 @@ export default function SignupForm() {
       <CardContent>
         <form onSubmit={form.handleSubmit(onSubmit)} className="mt-2 space-y-8">
           {
-            // Loop over form fields, but not role select, which is done below!
+            // Loop over form fields: "name", "email", "password"
             Object.entries(signupFormInputs).map(([key, value]) => (
               <LabelInputContainer key={key}>
-                <Label>{key.toLocaleUpperCase()}</Label>
+                <Label>{key.toUpperCase()}</Label>
                 <Error
                   enabled={
                     !!(
@@ -215,26 +207,7 @@ export default function SignupForm() {
             ))
           }
 
-          <LabelInputContainer>
-            <Label>ROLE</Label>
-            <Error enabled={!!(form.formState.errors && form.formState.errors.role)}>
-              {form.formState.errors &&
-                form.formState.errors.role &&
-                form.formState.errors.role.message}
-            </Error>
-            <select
-              {...form.register("role")}
-              className="h-10 w-full rounded-md border-none bg-gray-50 px-3 py-2 text-sm text-black dark:bg-zinc-800 dark:text-white placeholder:text-neutral-500 focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
-              defaultValue=""
-              disabled={isPending}
-            >
-              {availableRoles.map((role) => (
-                <option key={role.value} value={role.value} disabled={role.value === ""}>
-                  {role.label}
-                </option>
-              ))}
-            </select>
-          </LabelInputContainer>
+          {/* Role selection removed */}
 
           <Button
             type="submit"

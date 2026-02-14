@@ -90,7 +90,8 @@ export type UserProgress = $Result.DefaultSelection<Prisma.$UserProgressPayload>
 export namespace $Enums {
   export const Role: {
   RESIDENT: 'RESIDENT',
-  COMMUNITY_LEADER: 'COMMUNITY_LEADER'
+  COMMUNITY_LEADER: 'COMMUNITY_LEADER',
+  NOUSER: 'NOUSER'
 };
 
 export type Role = (typeof Role)[keyof typeof Role]
@@ -3752,6 +3753,9 @@ export namespace Prisma {
     name: string | null
     description: string | null
     leaderId: string | null
+    resourceUsage: string | null
+    infrastructure: string | null
+    environmentalConcerns: string | null
   }
 
   export type CommunityMaxAggregateOutputType = {
@@ -3759,6 +3763,9 @@ export namespace Prisma {
     name: string | null
     description: string | null
     leaderId: string | null
+    resourceUsage: string | null
+    infrastructure: string | null
+    environmentalConcerns: string | null
   }
 
   export type CommunityCountAggregateOutputType = {
@@ -3766,6 +3773,9 @@ export namespace Prisma {
     name: number
     description: number
     leaderId: number
+    resourceUsage: number
+    infrastructure: number
+    environmentalConcerns: number
     _all: number
   }
 
@@ -3775,6 +3785,9 @@ export namespace Prisma {
     name?: true
     description?: true
     leaderId?: true
+    resourceUsage?: true
+    infrastructure?: true
+    environmentalConcerns?: true
   }
 
   export type CommunityMaxAggregateInputType = {
@@ -3782,6 +3795,9 @@ export namespace Prisma {
     name?: true
     description?: true
     leaderId?: true
+    resourceUsage?: true
+    infrastructure?: true
+    environmentalConcerns?: true
   }
 
   export type CommunityCountAggregateInputType = {
@@ -3789,6 +3805,9 @@ export namespace Prisma {
     name?: true
     description?: true
     leaderId?: true
+    resourceUsage?: true
+    infrastructure?: true
+    environmentalConcerns?: true
     _all?: true
   }
 
@@ -3869,6 +3888,9 @@ export namespace Prisma {
     name: string
     description: string
     leaderId: string
+    resourceUsage: string | null
+    infrastructure: string | null
+    environmentalConcerns: string | null
     _count: CommunityCountAggregateOutputType | null
     _min: CommunityMinAggregateOutputType | null
     _max: CommunityMaxAggregateOutputType | null
@@ -3893,6 +3915,9 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     leaderId?: boolean
+    resourceUsage?: boolean
+    infrastructure?: boolean
+    environmentalConcerns?: boolean
     leader?: boolean | UserDefaultArgs<ExtArgs>
     members?: boolean | Community$membersArgs<ExtArgs>
     requests?: boolean | Community$requestsArgs<ExtArgs>
@@ -3905,6 +3930,9 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     leaderId?: boolean
+    resourceUsage?: boolean
+    infrastructure?: boolean
+    environmentalConcerns?: boolean
     leader?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["community"]>
 
@@ -3913,6 +3941,9 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     leaderId?: boolean
+    resourceUsage?: boolean
+    infrastructure?: boolean
+    environmentalConcerns?: boolean
     leader?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["community"]>
 
@@ -3921,9 +3952,12 @@ export namespace Prisma {
     name?: boolean
     description?: boolean
     leaderId?: boolean
+    resourceUsage?: boolean
+    infrastructure?: boolean
+    environmentalConcerns?: boolean
   }
 
-  export type CommunityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "leaderId", ExtArgs["result"]["community"]>
+  export type CommunityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "leaderId" | "resourceUsage" | "infrastructure" | "environmentalConcerns", ExtArgs["result"]["community"]>
   export type CommunityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     leader?: boolean | UserDefaultArgs<ExtArgs>
     members?: boolean | Community$membersArgs<ExtArgs>
@@ -3951,6 +3985,9 @@ export namespace Prisma {
       name: string
       description: string
       leaderId: string
+      resourceUsage: string | null
+      infrastructure: string | null
+      environmentalConcerns: string | null
     }, ExtArgs["result"]["community"]>
     composites: {}
   }
@@ -4382,6 +4419,9 @@ export namespace Prisma {
     readonly name: FieldRef<"Community", 'String'>
     readonly description: FieldRef<"Community", 'String'>
     readonly leaderId: FieldRef<"Community", 'String'>
+    readonly resourceUsage: FieldRef<"Community", 'String'>
+    readonly infrastructure: FieldRef<"Community", 'String'>
+    readonly environmentalConcerns: FieldRef<"Community", 'String'>
   }
     
 
@@ -18151,7 +18191,10 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     description: 'description',
-    leaderId: 'leaderId'
+    leaderId: 'leaderId',
+    resourceUsage: 'resourceUsage',
+    infrastructure: 'infrastructure',
+    environmentalConcerns: 'environmentalConcerns'
   };
 
   export type CommunityScalarFieldEnum = (typeof CommunityScalarFieldEnum)[keyof typeof CommunityScalarFieldEnum]
@@ -18627,6 +18670,9 @@ export namespace Prisma {
     name?: StringFilter<"Community"> | string
     description?: StringFilter<"Community"> | string
     leaderId?: StringFilter<"Community"> | string
+    resourceUsage?: StringNullableFilter<"Community"> | string | null
+    infrastructure?: StringNullableFilter<"Community"> | string | null
+    environmentalConcerns?: StringNullableFilter<"Community"> | string | null
     leader?: XOR<UserScalarRelationFilter, UserWhereInput>
     members?: MemberListRelationFilter
     requests?: CommunityRequestListRelationFilter
@@ -18638,6 +18684,9 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     leaderId?: SortOrder
+    resourceUsage?: SortOrderInput | SortOrder
+    infrastructure?: SortOrderInput | SortOrder
+    environmentalConcerns?: SortOrderInput | SortOrder
     leader?: UserOrderByWithRelationInput
     members?: MemberOrderByRelationAggregateInput
     requests?: CommunityRequestOrderByRelationAggregateInput
@@ -18652,6 +18701,9 @@ export namespace Prisma {
     name?: StringFilter<"Community"> | string
     description?: StringFilter<"Community"> | string
     leaderId?: StringFilter<"Community"> | string
+    resourceUsage?: StringNullableFilter<"Community"> | string | null
+    infrastructure?: StringNullableFilter<"Community"> | string | null
+    environmentalConcerns?: StringNullableFilter<"Community"> | string | null
     leader?: XOR<UserScalarRelationFilter, UserWhereInput>
     members?: MemberListRelationFilter
     requests?: CommunityRequestListRelationFilter
@@ -18663,6 +18715,9 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     leaderId?: SortOrder
+    resourceUsage?: SortOrderInput | SortOrder
+    infrastructure?: SortOrderInput | SortOrder
+    environmentalConcerns?: SortOrderInput | SortOrder
     _count?: CommunityCountOrderByAggregateInput
     _max?: CommunityMaxOrderByAggregateInput
     _min?: CommunityMinOrderByAggregateInput
@@ -18676,6 +18731,9 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Community"> | string
     description?: StringWithAggregatesFilter<"Community"> | string
     leaderId?: StringWithAggregatesFilter<"Community"> | string
+    resourceUsage?: StringNullableWithAggregatesFilter<"Community"> | string | null
+    infrastructure?: StringNullableWithAggregatesFilter<"Community"> | string | null
+    environmentalConcerns?: StringNullableWithAggregatesFilter<"Community"> | string | null
   }
 
   export type MemberWhereInput = {
@@ -19497,7 +19555,7 @@ export namespace Prisma {
     email: string
     name?: string | null
     emailVerified?: boolean
-    role: $Enums.Role
+    role?: $Enums.Role
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -19518,7 +19576,7 @@ export namespace Prisma {
     email: string
     name?: string | null
     emailVerified?: boolean
-    role: $Enums.Role
+    role?: $Enums.Role
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -19581,7 +19639,7 @@ export namespace Prisma {
     email: string
     name?: string | null
     emailVerified?: boolean
-    role: $Enums.Role
+    role?: $Enums.Role
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -19613,6 +19671,9 @@ export namespace Prisma {
     id?: string
     name: string
     description: string
+    resourceUsage?: string | null
+    infrastructure?: string | null
+    environmentalConcerns?: string | null
     leader: UserCreateNestedOneWithoutLedCommunitiesInput
     members?: MemberCreateNestedManyWithoutCommunityInput
     requests?: CommunityRequestCreateNestedManyWithoutCommunityInput
@@ -19624,6 +19685,9 @@ export namespace Prisma {
     name: string
     description: string
     leaderId: string
+    resourceUsage?: string | null
+    infrastructure?: string | null
+    environmentalConcerns?: string | null
     members?: MemberUncheckedCreateNestedManyWithoutCommunityInput
     requests?: CommunityRequestUncheckedCreateNestedManyWithoutCommunityInput
     recommendations?: RecommendationUncheckedCreateNestedManyWithoutCommunityInput
@@ -19633,6 +19697,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    resourceUsage?: NullableStringFieldUpdateOperationsInput | string | null
+    infrastructure?: NullableStringFieldUpdateOperationsInput | string | null
+    environmentalConcerns?: NullableStringFieldUpdateOperationsInput | string | null
     leader?: UserUpdateOneRequiredWithoutLedCommunitiesNestedInput
     members?: MemberUpdateManyWithoutCommunityNestedInput
     requests?: CommunityRequestUpdateManyWithoutCommunityNestedInput
@@ -19644,6 +19711,9 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     leaderId?: StringFieldUpdateOperationsInput | string
+    resourceUsage?: NullableStringFieldUpdateOperationsInput | string | null
+    infrastructure?: NullableStringFieldUpdateOperationsInput | string | null
+    environmentalConcerns?: NullableStringFieldUpdateOperationsInput | string | null
     members?: MemberUncheckedUpdateManyWithoutCommunityNestedInput
     requests?: CommunityRequestUncheckedUpdateManyWithoutCommunityNestedInput
     recommendations?: RecommendationUncheckedUpdateManyWithoutCommunityNestedInput
@@ -19654,12 +19724,18 @@ export namespace Prisma {
     name: string
     description: string
     leaderId: string
+    resourceUsage?: string | null
+    infrastructure?: string | null
+    environmentalConcerns?: string | null
   }
 
   export type CommunityUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    resourceUsage?: NullableStringFieldUpdateOperationsInput | string | null
+    infrastructure?: NullableStringFieldUpdateOperationsInput | string | null
+    environmentalConcerns?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type CommunityUncheckedUpdateManyInput = {
@@ -19667,6 +19743,9 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     leaderId?: StringFieldUpdateOperationsInput | string
+    resourceUsage?: NullableStringFieldUpdateOperationsInput | string | null
+    infrastructure?: NullableStringFieldUpdateOperationsInput | string | null
+    environmentalConcerns?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MemberCreateInput = {
@@ -20781,6 +20860,9 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     leaderId?: SortOrder
+    resourceUsage?: SortOrder
+    infrastructure?: SortOrder
+    environmentalConcerns?: SortOrder
   }
 
   export type CommunityMaxOrderByAggregateInput = {
@@ -20788,6 +20870,9 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     leaderId?: SortOrder
+    resourceUsage?: SortOrder
+    infrastructure?: SortOrder
+    environmentalConcerns?: SortOrder
   }
 
   export type CommunityMinOrderByAggregateInput = {
@@ -20795,6 +20880,9 @@ export namespace Prisma {
     name?: SortOrder
     description?: SortOrder
     leaderId?: SortOrder
+    resourceUsage?: SortOrder
+    infrastructure?: SortOrder
+    environmentalConcerns?: SortOrder
   }
 
   export type CommunityScalarRelationFilter = {
@@ -22915,6 +23003,9 @@ export namespace Prisma {
     id?: string
     name: string
     description: string
+    resourceUsage?: string | null
+    infrastructure?: string | null
+    environmentalConcerns?: string | null
     members?: MemberCreateNestedManyWithoutCommunityInput
     requests?: CommunityRequestCreateNestedManyWithoutCommunityInput
     recommendations?: RecommendationCreateNestedManyWithoutCommunityInput
@@ -22924,6 +23015,9 @@ export namespace Prisma {
     id?: string
     name: string
     description: string
+    resourceUsage?: string | null
+    infrastructure?: string | null
+    environmentalConcerns?: string | null
     members?: MemberUncheckedCreateNestedManyWithoutCommunityInput
     requests?: CommunityRequestUncheckedCreateNestedManyWithoutCommunityInput
     recommendations?: RecommendationUncheckedCreateNestedManyWithoutCommunityInput
@@ -23232,6 +23326,9 @@ export namespace Prisma {
     name?: StringFilter<"Community"> | string
     description?: StringFilter<"Community"> | string
     leaderId?: StringFilter<"Community"> | string
+    resourceUsage?: StringNullableFilter<"Community"> | string | null
+    infrastructure?: StringNullableFilter<"Community"> | string | null
+    environmentalConcerns?: StringNullableFilter<"Community"> | string | null
   }
 
   export type HouseholdUpsertWithWhereUniqueWithoutUserInput = {
@@ -23358,7 +23455,7 @@ export namespace Prisma {
     email: string
     name?: string | null
     emailVerified?: boolean
-    role: $Enums.Role
+    role?: $Enums.Role
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -23378,7 +23475,7 @@ export namespace Prisma {
     email: string
     name?: string | null
     emailVerified?: boolean
-    role: $Enums.Role
+    role?: $Enums.Role
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -23584,7 +23681,7 @@ export namespace Prisma {
     email: string
     name?: string | null
     emailVerified?: boolean
-    role: $Enums.Role
+    role?: $Enums.Role
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -23604,7 +23701,7 @@ export namespace Prisma {
     email: string
     name?: string | null
     emailVerified?: boolean
-    role: $Enums.Role
+    role?: $Enums.Role
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -23628,6 +23725,9 @@ export namespace Prisma {
     id?: string
     name: string
     description: string
+    resourceUsage?: string | null
+    infrastructure?: string | null
+    environmentalConcerns?: string | null
     leader: UserCreateNestedOneWithoutLedCommunitiesInput
     requests?: CommunityRequestCreateNestedManyWithoutCommunityInput
     recommendations?: RecommendationCreateNestedManyWithoutCommunityInput
@@ -23638,6 +23738,9 @@ export namespace Prisma {
     name: string
     description: string
     leaderId: string
+    resourceUsage?: string | null
+    infrastructure?: string | null
+    environmentalConcerns?: string | null
     requests?: CommunityRequestUncheckedCreateNestedManyWithoutCommunityInput
     recommendations?: RecommendationUncheckedCreateNestedManyWithoutCommunityInput
   }
@@ -23713,6 +23816,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    resourceUsage?: NullableStringFieldUpdateOperationsInput | string | null
+    infrastructure?: NullableStringFieldUpdateOperationsInput | string | null
+    environmentalConcerns?: NullableStringFieldUpdateOperationsInput | string | null
     leader?: UserUpdateOneRequiredWithoutLedCommunitiesNestedInput
     requests?: CommunityRequestUpdateManyWithoutCommunityNestedInput
     recommendations?: RecommendationUpdateManyWithoutCommunityNestedInput
@@ -23723,6 +23829,9 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     leaderId?: StringFieldUpdateOperationsInput | string
+    resourceUsage?: NullableStringFieldUpdateOperationsInput | string | null
+    infrastructure?: NullableStringFieldUpdateOperationsInput | string | null
+    environmentalConcerns?: NullableStringFieldUpdateOperationsInput | string | null
     requests?: CommunityRequestUncheckedUpdateManyWithoutCommunityNestedInput
     recommendations?: RecommendationUncheckedUpdateManyWithoutCommunityNestedInput
   }
@@ -23732,7 +23841,7 @@ export namespace Prisma {
     email: string
     name?: string | null
     emailVerified?: boolean
-    role: $Enums.Role
+    role?: $Enums.Role
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -23752,7 +23861,7 @@ export namespace Prisma {
     email: string
     name?: string | null
     emailVerified?: boolean
-    role: $Enums.Role
+    role?: $Enums.Role
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -23776,6 +23885,9 @@ export namespace Prisma {
     id?: string
     name: string
     description: string
+    resourceUsage?: string | null
+    infrastructure?: string | null
+    environmentalConcerns?: string | null
     leader: UserCreateNestedOneWithoutLedCommunitiesInput
     members?: MemberCreateNestedManyWithoutCommunityInput
     recommendations?: RecommendationCreateNestedManyWithoutCommunityInput
@@ -23786,6 +23898,9 @@ export namespace Prisma {
     name: string
     description: string
     leaderId: string
+    resourceUsage?: string | null
+    infrastructure?: string | null
+    environmentalConcerns?: string | null
     members?: MemberUncheckedCreateNestedManyWithoutCommunityInput
     recommendations?: RecommendationUncheckedCreateNestedManyWithoutCommunityInput
   }
@@ -23861,6 +23976,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    resourceUsage?: NullableStringFieldUpdateOperationsInput | string | null
+    infrastructure?: NullableStringFieldUpdateOperationsInput | string | null
+    environmentalConcerns?: NullableStringFieldUpdateOperationsInput | string | null
     leader?: UserUpdateOneRequiredWithoutLedCommunitiesNestedInput
     members?: MemberUpdateManyWithoutCommunityNestedInput
     recommendations?: RecommendationUpdateManyWithoutCommunityNestedInput
@@ -23871,6 +23989,9 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     leaderId?: StringFieldUpdateOperationsInput | string
+    resourceUsage?: NullableStringFieldUpdateOperationsInput | string | null
+    infrastructure?: NullableStringFieldUpdateOperationsInput | string | null
+    environmentalConcerns?: NullableStringFieldUpdateOperationsInput | string | null
     members?: MemberUncheckedUpdateManyWithoutCommunityNestedInput
     recommendations?: RecommendationUncheckedUpdateManyWithoutCommunityNestedInput
   }
@@ -23880,7 +24001,7 @@ export namespace Prisma {
     email: string
     name?: string | null
     emailVerified?: boolean
-    role: $Enums.Role
+    role?: $Enums.Role
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -23900,7 +24021,7 @@ export namespace Prisma {
     email: string
     name?: string | null
     emailVerified?: boolean
-    role: $Enums.Role
+    role?: $Enums.Role
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -23976,7 +24097,7 @@ export namespace Prisma {
     email: string
     name?: string | null
     emailVerified?: boolean
-    role: $Enums.Role
+    role?: $Enums.Role
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -23996,7 +24117,7 @@ export namespace Prisma {
     email: string
     name?: string | null
     emailVerified?: boolean
-    role: $Enums.Role
+    role?: $Enums.Role
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -24072,7 +24193,7 @@ export namespace Prisma {
     email: string
     name?: string | null
     emailVerified?: boolean
-    role: $Enums.Role
+    role?: $Enums.Role
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -24092,7 +24213,7 @@ export namespace Prisma {
     email: string
     name?: string | null
     emailVerified?: boolean
-    role: $Enums.Role
+    role?: $Enums.Role
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -24168,7 +24289,7 @@ export namespace Prisma {
     email: string
     name?: string | null
     emailVerified?: boolean
-    role: $Enums.Role
+    role?: $Enums.Role
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -24188,7 +24309,7 @@ export namespace Prisma {
     email: string
     name?: string | null
     emailVerified?: boolean
-    role: $Enums.Role
+    role?: $Enums.Role
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -24264,7 +24385,7 @@ export namespace Prisma {
     email: string
     name?: string | null
     emailVerified?: boolean
-    role: $Enums.Role
+    role?: $Enums.Role
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -24284,7 +24405,7 @@ export namespace Prisma {
     email: string
     name?: string | null
     emailVerified?: boolean
-    role: $Enums.Role
+    role?: $Enums.Role
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -24308,6 +24429,9 @@ export namespace Prisma {
     id?: string
     name: string
     description: string
+    resourceUsage?: string | null
+    infrastructure?: string | null
+    environmentalConcerns?: string | null
     leader: UserCreateNestedOneWithoutLedCommunitiesInput
     members?: MemberCreateNestedManyWithoutCommunityInput
     requests?: CommunityRequestCreateNestedManyWithoutCommunityInput
@@ -24318,6 +24442,9 @@ export namespace Prisma {
     name: string
     description: string
     leaderId: string
+    resourceUsage?: string | null
+    infrastructure?: string | null
+    environmentalConcerns?: string | null
     members?: MemberUncheckedCreateNestedManyWithoutCommunityInput
     requests?: CommunityRequestUncheckedCreateNestedManyWithoutCommunityInput
   }
@@ -24479,6 +24606,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    resourceUsage?: NullableStringFieldUpdateOperationsInput | string | null
+    infrastructure?: NullableStringFieldUpdateOperationsInput | string | null
+    environmentalConcerns?: NullableStringFieldUpdateOperationsInput | string | null
     leader?: UserUpdateOneRequiredWithoutLedCommunitiesNestedInput
     members?: MemberUpdateManyWithoutCommunityNestedInput
     requests?: CommunityRequestUpdateManyWithoutCommunityNestedInput
@@ -24489,6 +24619,9 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     leaderId?: StringFieldUpdateOperationsInput | string
+    resourceUsage?: NullableStringFieldUpdateOperationsInput | string | null
+    infrastructure?: NullableStringFieldUpdateOperationsInput | string | null
+    environmentalConcerns?: NullableStringFieldUpdateOperationsInput | string | null
     members?: MemberUncheckedUpdateManyWithoutCommunityNestedInput
     requests?: CommunityRequestUncheckedUpdateManyWithoutCommunityNestedInput
   }
@@ -24838,7 +24971,7 @@ export namespace Prisma {
     email: string
     name?: string | null
     emailVerified?: boolean
-    role: $Enums.Role
+    role?: $Enums.Role
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -24858,7 +24991,7 @@ export namespace Prisma {
     email: string
     name?: string | null
     emailVerified?: boolean
-    role: $Enums.Role
+    role?: $Enums.Role
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25002,7 +25135,7 @@ export namespace Prisma {
     email: string
     name?: string | null
     emailVerified?: boolean
-    role: $Enums.Role
+    role?: $Enums.Role
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25022,7 +25155,7 @@ export namespace Prisma {
     email: string
     name?: string | null
     emailVerified?: boolean
-    role: $Enums.Role
+    role?: $Enums.Role
     image?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -25210,6 +25343,9 @@ export namespace Prisma {
     id?: string
     name: string
     description: string
+    resourceUsage?: string | null
+    infrastructure?: string | null
+    environmentalConcerns?: string | null
   }
 
   export type HouseholdCreateManyUserInput = {
@@ -25390,6 +25526,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    resourceUsage?: NullableStringFieldUpdateOperationsInput | string | null
+    infrastructure?: NullableStringFieldUpdateOperationsInput | string | null
+    environmentalConcerns?: NullableStringFieldUpdateOperationsInput | string | null
     members?: MemberUpdateManyWithoutCommunityNestedInput
     requests?: CommunityRequestUpdateManyWithoutCommunityNestedInput
     recommendations?: RecommendationUpdateManyWithoutCommunityNestedInput
@@ -25399,6 +25538,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    resourceUsage?: NullableStringFieldUpdateOperationsInput | string | null
+    infrastructure?: NullableStringFieldUpdateOperationsInput | string | null
+    environmentalConcerns?: NullableStringFieldUpdateOperationsInput | string | null
     members?: MemberUncheckedUpdateManyWithoutCommunityNestedInput
     requests?: CommunityRequestUncheckedUpdateManyWithoutCommunityNestedInput
     recommendations?: RecommendationUncheckedUpdateManyWithoutCommunityNestedInput
@@ -25408,6 +25550,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    resourceUsage?: NullableStringFieldUpdateOperationsInput | string | null
+    infrastructure?: NullableStringFieldUpdateOperationsInput | string | null
+    environmentalConcerns?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type HouseholdUpdateWithoutUserInput = {

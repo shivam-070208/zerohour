@@ -2,25 +2,6 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "./db";
 
-// Prisma Role enum values as defined in prisma/schema.prisma
-const ROLE_VALUES = ["RESIDENT", "COMMUNITY_LEADER"];
-
-/**
- * Ensures the user object includes a valid role.
- * Falls back to "RESIDENT" if role is missing or invalid.
- */
-function normalizeUserRole(user) {
-  // Use optional chaining to guard against missing user/role
-  let role = user?.role;
-  if (!ROLE_VALUES.includes(role)) {
-    role = "RESIDENT";
-  }
-  return {
-    ...user,
-    role,
-  };
-}
-
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql",
@@ -28,6 +9,7 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     autoSignIn: true,
+    // No role field here, only default fields (email, password, etc)
   },
   socialProviders: {
     google: {
@@ -36,12 +18,6 @@ export const auth = betterAuth({
     },
   },
   plugins: [
-    // Sanitize all user objects' role fields to ensure they are valid
-    {
-      name: "normalizeRolePlugin",
-      async onUser(user) {
-        return normalizeUserRole(user);
-      },
-    },
+    // No role normalization plugin needed
   ],
 });

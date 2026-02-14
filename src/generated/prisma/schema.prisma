@@ -19,7 +19,7 @@ model User {
   name              String?
   posts             Post[]
   emailVerified     Boolean            @default(false)
-  role              Role
+  role              Role               @default(NOUSER)
   image             String?
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @updatedAt
@@ -41,19 +41,23 @@ model User {
 enum Role {
   RESIDENT
   COMMUNITY_LEADER
+  NOUSER
 }
 
 model Community {
-  id              String             @id @default(uuid())
-  name            String
-  description     String
-  leaderId        String
-  leader          User               @relation("LeaderCommunities", fields: [leaderId], references: [id])
-  members         Member[] // List of members in the community
-  requests        CommunityRequest[] // Community join requests
-  recommendations Recommendation[] // Community-level recommendations
+  id                    String             @id @default(uuid())
+  name                  String
+  description           String
+  leaderId              String
+  resourceUsage         String? // Information about water, energy, waste usage
+  infrastructure        String? // Information about existing infrastructure
+  environmentalConcerns String? // Environmental concerns of the community
+  leader                User               @relation("LeaderCommunities", fields: [leaderId], references: [id])
+  members               Member[] // List of members in the community
+  requests              CommunityRequest[] // Community join requests
+  recommendations       Recommendation[] // Community-level recommendations
 
-  // Add any other fields here if needed.
+  @@map("community")
 }
 
 model Member {

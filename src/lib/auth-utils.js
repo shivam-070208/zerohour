@@ -30,14 +30,13 @@ export const unauthRequire = async () => {
       dbRole = userFromDb?.role;
     }
 
-    if (dbRole === Role.RESIDENT) {
+    if (dbRole === Role.NOUSER) {
+      redirectPath = "/set-role";
+    } else if (dbRole === Role.RESIDENT) {
       redirectPath = "/resident";
-    } else if (
-      dbRole === Role.COMMUNITY_LEADER
-    ) {
+    } else if (dbRole === Role.COMMUNITY_LEADER) {
       redirectPath = "/leader";
     }
-    console.log("Session:", session, "DB Role:", dbRole);
     redirect(redirectPath);
   }
 };
