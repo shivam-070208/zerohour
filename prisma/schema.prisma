@@ -5,10 +5,240 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
-  output   = "../app/generated/prisma"
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
+}
+
+model User {
+  id                   String                @id @default(uuid())
+  email                String                @unique
+  name                 String?
+  posts                Post[]
+  emailVerified        Boolean               @default(false)
+  image                String?
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  sessions             Session[]
+  accounts             Account[]
+  communityRequests    CommunityRequest[]    // requests for joining communities
+  member               Member[]              // Communities that user belongs to
+  ledCommunities       Community[]           @relation("LeaderCommunities") // Communities user leads
+  households           Household[]           // Households for this user
+  tasks                Task[]                // Added for Task relation
+  userProgresses       UserProgress[]        // Added for UserProgress relation
+  recommendations      Recommendation[]      // Added for Recommendation relation
+
+  @@map("user")
+}
+// User model (already exists)
+
+enum Role {
+  RESIDENT
+  COMMUNITY_LEADER
+}
+
+model Community {
+  id          String                @id @default(uuid())
+  name        String
+  description String
+  leaderId    String
+  leader      User                  @relation("LeaderCommunities", fields: [leaderId], references: [id])
+  members     Member[]              // List of members in the community
+  requests    CommunityRequest[]    // Community join requests
+  recommendations Recommendation[]  // Community-level recommendations
+
+  // Add any other fields here if needed.
+}
+
+model Member {
+  id          String     @id @default(uuid())
+  userId      String
+  communityId String
+  user        User       @relation(fields: [userId], references: [id])
+  community   Community  @relation(fields: [communityId], references: [id])
+  joinedAt    DateTime   @default(now())
+}
+
+model CommunityRequest {
+  id          String     @id @default(uuid())
+  userId      String
+  communityId String
+  status      RequestStatus
+  user        User       @relation(fields: [userId], references: [id])
+  community   Community  @relation(fields: [communityId], references: [id])
+  requestedAt DateTime   @default(now())
+}
+
+enum RequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+
+model Post {
+  id        String   @id @default(uuid())
+  title     String
+  content   String?
+  published Boolean  @default(false)
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id])
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}
+
+
+model Household {
+  id               String   @id @default(uuid())
+  userId           String
+  user             User     @relation(fields: [userId], references: [id])
+  energyUsage      Float
+  waterUsage       Float
+  wasteGenerated   Float
+  transportation   String
+  commuteDistance  Float
+  location         String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model Recommendation {
+  id              String       @id @default(uuid())
+  userId          String?      // For resident-specific recommendations
+  user            User?        @relation(fields: [userId], references: [id])
+  communityId     String?      // For community-level recommendations
+  community       Community?   @relation(fields: [communityId], references: [id])
+  recommendation  String
+  category        RecommendationCategory
+  status          RecommendationStatus
+  nodes           Node[]       // Relation: A recommendation has many nodes
+  tasks           Task[]       // Tasks belonging to this recommendation
+  userProgresses  UserProgress[] // Progresses for this recommendation
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+}
+
+enum RecommendationCategory {
+  ENERGY
+  WATER
+  WASTE
+}
+
+enum RecommendationStatus {
+  PENDING
+  COMPLETED
+  IN_PROGRESS
+}
+
+
+model Node {
+  id               String         @id @default(uuid()) // Unique node ID
+  recommendationId String         // Foreign key to Recommendation
+  recommendation   Recommendation @relation(fields: [recommendationId], references: [id])
+  label            String         // The task or action described in the node
+  status           NodeStatus     // The status of this node (pending, completed, etc.)
+  position         Json           // Store position as { x: number, y: number } for React Flow
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+
+  // Opposite relations for Edge
+  outgoingEdges    Edge[]         @relation("SourceNode")
+  incomingEdges    Edge[]         @relation("TargetNode")
+}
+
+enum NodeStatus {
+  PENDING
+  COMPLETED
+  NOT_STARTED
+}
+
+
+model Edge {
+  id           String   @id @default(uuid()) // Unique edge ID
+  sourceNodeId String
+  targetNodeId String
+  sourceNode   Node     @relation("SourceNode", fields: [sourceNodeId], references: [id])
+  targetNode   Node     @relation("TargetNode", fields: [targetNodeId], references: [id])
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+
+model Task {
+  id               String         @id @default(uuid())
+  userId           String
+  user             User           @relation(fields: [userId], references: [id])
+  recommendationId String
+  recommendation   Recommendation @relation(fields: [recommendationId], references: [id])
+  taskName         String
+  dueDate          DateTime
+  status           TaskStatus
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+}
+
+enum TaskStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+}
+
+model UserProgress {
+  id                  String         @id @default(uuid())
+  userId              String
+  user                User           @relation(fields: [userId], references: [id])
+  recommendationId    String
+  recommendation      Recommendation @relation(fields: [recommendationId], references: [id])
+  progressPercentage  Float
+  lastUpdated         DateTime       @updatedAt
 }
