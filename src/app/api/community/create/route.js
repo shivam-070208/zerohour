@@ -6,9 +6,10 @@ import { Role } from "@/generated/prisma";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 
+
 function validateBody(body) {
   const errors = [];
-  
+
   if (!body || typeof body !== "object") {
     errors.push("Invalid JSON body");
     return errors;
@@ -45,16 +46,12 @@ function validateBody(body) {
   return errors;
 }
 
-
-
 async function getUserById(userId) {
   if (!userId) return null;
   return await prisma.user.findUnique({
     where: { id: userId },
   });
 }
-
-
 
 export async function POST(request) {
   // Enforce authentication and get session
@@ -91,7 +88,7 @@ export async function POST(request) {
   if (session.user.role !== Role.COMMUNITY_LEADER) {
     return NextResponse.json(
       { error: "Forbidden: Only community leaders can create a community" },
-      { status: 403 },
+      { status: 403 }
     );
   }
 
@@ -114,7 +111,7 @@ export async function POST(request) {
     // Prisma error handling
     return NextResponse.json(
       { error: e?.message || "Failed to create community" },
-      { status: 500 },
+      { status: 500 }
     );
   }
 }

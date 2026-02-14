@@ -24,10 +24,16 @@ export async function GET(request) {
         environmentalConcerns: true,
         leaderId: true,
         members: {
-          select: {
-            id: true,
-            userId: true,
+          include: {
+            user: {
+              select: {
+                id: true,
+                name: true,
+                email: true,
+              },
+            },
           },
+          orderBy: { joinedAt: "desc" },
         },
       },
     });
@@ -36,17 +42,25 @@ export async function GET(request) {
       return NextResponse.json({
         hasCommunity: false,
         community: null,
+        communityName: null,
+        members: [],
       });
     }
 
     return NextResponse.json({
       hasCommunity: true,
+      communityName: community.name,
       community: {
         id: community.id,
         name: community.name,
         description: community.description,
         memberCount: community.members.length,
       },
+      members: community.members.map((m) => ({
+        id: m.id,
+        joinedAt: m.joinedAt,
+        user: m.user,
+      })),
     });
   } catch (error) {
     console.error("Error fetching community:", error);

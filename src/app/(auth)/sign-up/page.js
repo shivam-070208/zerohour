@@ -26,6 +26,7 @@ import { authClient } from "@/lib/auth-client";
 import Image from "next/image";
 import { toast } from "sonner";
 import { BottomGradient } from "@/components/ui/bottom-gradient";
+import { useRouter } from "next/navigation";
 
 // Remove ROLE_VALUES and all "role" related code
 
@@ -49,6 +50,7 @@ const signupFormValues = z.object({
 const formFields = ["name", "email", "password"];
 
 export default function SignupForm() {
+  const router = useRouter();
   const signupFormInputs = {
     name: {
       required: "please enter your name",
@@ -103,6 +105,7 @@ export default function SignupForm() {
         },
       }
     );
+  router.push("/set-role");
   };
 
   const handleGithubAuth = async (mode) => {

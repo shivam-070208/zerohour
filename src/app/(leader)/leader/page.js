@@ -98,8 +98,7 @@ function CreateCommunity({ onCommunityCreated, userId }) {
           Create a Community
         </CardTitle>
         <CardDescription className="mt-2 text-gray-700">
-          Share information about your community, resources, infrastructure, and
-          environmental concerns
+          Share information about your community, resources, infrastructure, and environmental concerns
         </CardDescription>
       </CardHeader>
       <CardContent className="pt-6">
@@ -223,20 +222,23 @@ function CreateCommunity({ onCommunityCreated, userId }) {
 
 function CommunityInfo({ community }) {
   return (
-    <div className="mx-auto max-w-4xl">
-      <Card className="border-0 shadow-lg">
-        <CardHeader className="bg-gradient-to-r from-primary/10 to-primary/5 pb-8">
-          <CardTitle className="text-3xl font-bold text-gray-900">
-            {community.name}
+    <div className="mx-auto max-w-3xl w-full">
+      <Card className="border border-neutral-200 shadow-md bg-white">
+        <CardHeader className="bg-gradient-to-r from-primary/10 to-primary/5 pb-6 rounded-t-lg">
+          <CardTitle className="text-2xl font-bold text-gray-900 flex flex-col sm:flex-row sm:items-baseline gap-2">
+            <span>{community.name}</span>
+            <span className="ml-0 sm:ml-4 px-3 py-1 text-xs bg-primary/10 text-primary-700 rounded-full font-medium tracking-wide">
+              Community
+            </span>
           </CardTitle>
           <CardDescription className="mt-2 text-base text-gray-700">
             {community.description}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6 pt-6">
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid gap-4 grid-cols-1 md:grid-cols-2">
             <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-6">
-              <p className="text-sm font-medium text-neutral-600">
+              <p className="text-xs font-medium text-neutral-600 uppercase tracking-wide">
                 Community ID
               </p>
               <p className="mt-2 font-mono text-sm text-gray-900 break-all">
@@ -244,18 +246,19 @@ function CommunityInfo({ community }) {
               </p>
             </div>
             <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-6">
-              <p className="text-sm font-medium text-neutral-600">
+              <p className="text-xs font-medium text-neutral-600 uppercase tracking-wide">
                 Total Members
               </p>
-              <p className="mt-2 text-3xl font-bold text-gray-900">
+              <p className="mt-2 text-3xl font-bold text-primary-700">
                 {community.memberCount}
               </p>
             </div>
           </div>
 
-          <div className="space-y-4 pt-4">
-            <div className="rounded-lg border border-neutral-200 bg-gray-50 p-6">
-              <h4 className="text-lg font-semibold text-gray-900 mb-2">
+          <div className="space-y-4 pt-2">
+            <div className="rounded-lg border border-neutral-100 bg-white p-5">
+              <h4 className="text-lg font-semibold text-gray-800 mb-1 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-primary/50"></span>
                 Resource Usage
               </h4>
               <p className="text-sm text-gray-700 whitespace-pre-wrap">
@@ -263,8 +266,9 @@ function CommunityInfo({ community }) {
               </p>
             </div>
 
-            <div className="rounded-lg border border-neutral-200 bg-gray-50 p-6">
-              <h4 className="text-lg font-semibold text-gray-900 mb-2">
+            <div className="rounded-lg border border-neutral-100 bg-white p-5">
+              <h4 className="text-lg font-semibold text-gray-800 mb-1 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-primary/50"></span>
                 Infrastructure
               </h4>
               <p className="text-sm text-gray-700 whitespace-pre-wrap">
@@ -272,8 +276,9 @@ function CommunityInfo({ community }) {
               </p>
             </div>
 
-            <div className="rounded-lg border border-neutral-200 bg-gray-50 p-6">
-              <h4 className="text-lg font-semibold text-gray-900 mb-2">
+            <div className="rounded-lg border border-neutral-100 bg-white p-5">
+              <h4 className="text-lg font-semibold text-gray-800 mb-1 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-primary/50"></span>
                 Environmental Concerns
               </h4>
               <p className="text-sm text-gray-700 whitespace-pre-wrap">
@@ -282,13 +287,13 @@ function CommunityInfo({ community }) {
             </div>
           </div>
 
-          <div className="mt-8 flex gap-3">
-            <Link href="/leader/members">
-              <Button className="bg-primary hover:bg-primary/90 text-white">
+          <div className="mt-6 flex flex-col sm:flex-row gap-3">
+            <Link href="/leader/members" className="flex-1">
+              <Button className="bg-primary hover:bg-primary/90 text-white w-full">
                 Manage Members
               </Button>
             </Link>
-            <Button variant="outline" className="border-neutral-300">
+            <Button variant="outline" className="border-neutral-300 flex-1">
               Community Settings
             </Button>
           </div>
@@ -401,9 +406,9 @@ export default function LeaderPage() {
   }
 
   return (
-    <div className="min-h-dvh w-full bg-red-500">
+    <div className="min-h-dvh w-full bg-gradient-to-br from-white via-neutral-50 to-primary/10">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="mb-12">
+        <div className="mb-10">
           <h1 className="text-4xl font-bold tracking-tight text-gray-900">
             Dashboard
           </h1>
