@@ -18,9 +18,39 @@ export async function GET() {
       orderBy: { requestedAt: "desc" },
     });
 
-    const member = await prisma.member.findFirst({ where: { userId } });
+    const member = await prisma.member.findFirst({
+      where: { userId },
+      include: {
+        community: {
+          select: {
+            id: true,
+            name: true,
+            description: true,
+            leaderId: true,
+            leader: {
+              select: { id: true, name: true, email: true },
+            },
+            members: {
+              include: {
+                user: { select: { id: true, name: true, email: true } },
+              },
+              orderBy: { joinedAt: "desc" },
+            },
+          },
+        },
+      },
+    });
 
-    return NextResponse.json({ requests, isMember: !!member });
+    return NextResponse.json({
+      requests,
+      isMember: !!member,
+      memberCommunity: member
+        ? {
+            ...member.community,
+            memberCount: member.community.members.length,
+          }
+        : null,
+    });
   } catch (err) {
     console.error("GET /api/user/requests error:", err);
     return NextResponse.json(

@@ -10,13 +10,13 @@ export async function GET() {
         description: true,
         leaderId: true,
         leader: {
-          select: { id: true, name: true, email: true }
+          select: { id: true, name: true, email: true },
         },
-        members: { 
+        members: {
           include: {
-            user: { select: { id: true, name: true, email: true } }
+            user: { select: { id: true, name: true, email: true } },
           },
-          orderBy: { joinedAt: 'desc' }
+          orderBy: { joinedAt: "desc" },
         },
       },
       orderBy: { name: "asc" },
@@ -29,11 +29,11 @@ export async function GET() {
       memberCount: c.members.length,
       leaderId: c.leaderId,
       leader: c.leader,
-      members: c.members.map(m => ({
+      members: c.members.map((m) => ({
         id: m.id,
         joinedAt: m.joinedAt,
-        user: m.user
-      }))
+        user: m.user,
+      })),
     }));
 
     return NextResponse.json({ communities: payload });

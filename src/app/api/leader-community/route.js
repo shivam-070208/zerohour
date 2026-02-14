@@ -47,6 +47,21 @@ export async function GET(request) {
       });
     }
 
+    // Fetch household data for each member
+    const membersWithData = await Promise.all(
+      community.members.map(async (m) => {
+        const householdData = await prisma.household.findFirst({
+          where: { userId: m.user.id },
+        });
+        return {
+          id: m.id,
+          joinedAt: m.joinedAt,
+          user: m.user,
+          householdData: householdData || null,
+        };
+      }),
+    );
+
     return NextResponse.json({
       hasCommunity: true,
       communityName: community.name,
@@ -56,11 +71,7 @@ export async function GET(request) {
         description: community.description,
         memberCount: community.members.length,
       },
-      members: community.members.map((m) => ({
-        id: m.id,
-        joinedAt: m.joinedAt,
-        user: m.user,
-      })),
+      members: membersWithData,
     });
   } catch (error) {
     console.error("Error fetching community:", error);

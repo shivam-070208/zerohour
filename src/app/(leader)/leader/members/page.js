@@ -13,6 +13,7 @@ export default function LeaderMembersPage() {
   const [error, setError] = useState(null);
   const [showRequestsModal, setShowRequestsModal] = useState(false);
   const [requestsLoading, setRequestsLoading] = useState(false);
+  const [expandedMember, setExpandedMember] = useState(null);
 
   const loadMembers = async () => {
     try {
@@ -135,8 +136,8 @@ export default function LeaderMembersPage() {
         <div className="grid gap-3 mt-4 max-w-4xl">
           {members.map((member) => (
             <Card key={member.id} className="p-4">
-              <div className="flex justify-between items-center">
-                <div>
+              <div className="flex justify-between items-start">
+                <div className="flex-1">
                   <CardTitle className="text-lg">
                     {member.user?.name || member.user?.email || "Unknown"}
                   </CardTitle>
@@ -146,12 +147,77 @@ export default function LeaderMembersPage() {
                   <p className="text-xs text-gray-400 mt-1">
                     Joined: {new Date(member.joinedAt).toLocaleDateString()}
                   </p>
+
+                  {/* Household Data Toggle */}
+                  {member.householdData && (
+                    <div className="mt-3 border-t pt-3">
+                      <button
+                        onClick={() =>
+                          setExpandedMember(
+                            expandedMember === member.id ? null : member.id,
+                          )
+                        }
+                        className="text-sm font-medium text-blue-600 hover:underline"
+                      >
+                        {expandedMember === member.id
+                          ? "Hide Household Data"
+                          : "View Household Data"}
+                      </button>
+
+                      {expandedMember === member.id && (
+                        <div className="mt-2 grid grid-cols-2 gap-2 text-sm">
+                          <div className="bg-gray-50 p-2 rounded">
+                            <p className="text-gray-600">Energy Usage</p>
+                            <p className="font-semibold">
+                              {member.householdData.energyUsage || "—"} kWh
+                            </p>
+                          </div>
+                          <div className="bg-gray-50 p-2 rounded">
+                            <p className="text-gray-600">Water Usage</p>
+                            <p className="font-semibold">
+                              {member.householdData.waterUsage || "—"} gal
+                            </p>
+                          </div>
+                          <div className="bg-gray-50 p-2 rounded">
+                            <p className="text-gray-600">Waste Generated</p>
+                            <p className="font-semibold">
+                              {member.householdData.wasteGenerated || "—"} kg
+                            </p>
+                          </div>
+                          <div className="bg-gray-50 p-2 rounded">
+                            <p className="text-gray-600">Transportation</p>
+                            <p className="font-semibold">
+                              {member.householdData.transportation || "—"}
+                            </p>
+                          </div>
+                          <div className="bg-gray-50 p-2 rounded">
+                            <p className="text-gray-600">Commute Distance</p>
+                            <p className="font-semibold">
+                              {member.householdData.commuteDistance || "—"} km
+                            </p>
+                          </div>
+                          <div className="bg-gray-50 p-2 rounded">
+                            <p className="text-gray-600">Location</p>
+                            <p className="font-semibold">
+                              {member.householdData.location || "—"}
+                            </p>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {!member.householdData && (
+                    <p className="text-xs text-gray-400 mt-3">
+                      No household data submitted yet
+                    </p>
+                  )}
                 </div>
                 <Button
                   disabled={processing === member.id}
                   onClick={() => handleRemoveMember(member.id)}
                   variant="destructive"
-                  className="bg-red-600 hover:bg-red-700 text-white"
+                  className="bg-red-600 hover:bg-red-700 text-white whitespace-nowrap ml-4"
                 >
                   {processing === member.id ? "Removing..." : "Remove"}
                 </Button>
